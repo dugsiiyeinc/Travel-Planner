@@ -88,6 +88,19 @@ const Home = () => {
           Start Planning
         </a>
       </section>
+        {/* Features */}
+        <section className="px-4 py-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        {features.map((feature, index) => (
+          <div key={index} className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden">
+            <img src={feature.image} alt={feature.title} className="w-full h-48 object-cover" />
+            <div className="p-6">
+              <div className="text-3xl mb-4">{feature.icon}</div>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-400">{feature.description}</p>
+            </div>
+          </div>
+        ))}
+      </section>
     </main>
   );
 };
