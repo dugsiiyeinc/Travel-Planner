@@ -71,7 +71,23 @@ const Home = () => {
   ];
   return (
     <main className="bg-[#0E0F2C] text-white min-h-screen pt-20">
-     
+      {/* Hero section */}
+      <section className="flex flex-col items-center text-center px-4 py-20">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Discover. Plan. Travel.{" "}
+          <span className="text-blue-500">Effortlessly.</span>
+        </h1>
+        <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
+          TravelPlanner helps you create unforgettable journeys with smart tools
+          and inspiring guides.
+        </p>
+        <a
+          href="/dashboard"
+          className="mt-8 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition"
+        >
+          Start Planning
+        </a>
+      </section>
     </main>
   );
 };
