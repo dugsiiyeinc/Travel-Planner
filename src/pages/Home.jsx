@@ -7,43 +7,46 @@ const Home = () => {
       title: "Explore Destinations",
       description:
         "Discover top spots with curated travel guides and user tips.",
-      image: "https://source.unsplash.com/400x300/?destination,travel",
+      image:
+        "https://images.unsplash.com/photo-1501425359013-96058e410cfc?q=80&w=2078&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       icon: "🧭",
       title: "Plan Seamlessly",
       description:
         "Smart itinerary planning with budget tracking and AI suggestions.",
-      image: "https://source.unsplash.com/400x300/?map,travel",
+      image:
+        "https://images.unsplash.com/photo-1617046774731-b2c14cc8c377?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       icon: "📊",
       title: "Dashboard Insights",
       description:
         "See your travel data, preferences, and past trips in one place.",
-      image: "https://source.unsplash.com/400x300/?data,dashboard",
+      image:
+        "https://images.unsplash.com/photo-1639060015191-9d83063eab2a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
   const testimonials = [
     {
       quote:
         "TravelPlanner completely changed how I organize my trips. It's a must-have!",
-      name: "Emily R.",
+      name: "Haawa",
       role: "Digital Nomad",
-      image: "https://source.unsplash.com/100x100/?woman,portrait",
+      image: "https://images.unsplash.com/photo-1729658394538-9421c0dc5aa0?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote:
         "The dashboard and guides are so intuitive. Saved me days of planning.",
-      name: "Carlos M.",
+      name: "Shiine",
       role: "Frequent Flyer",
-      image: "https://source.unsplash.com/100x100/?man,smile",
+      image: "https://images.unsplash.com/photo-1615204937608-614bc888e88f?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote: "This platform helped me plan my honeymoon stress-free!",
-      name: "Leila S.",
+      name: "Ayaanle",
       role: "First-Time Traveler",
-      image: "https://source.unsplash.com/100x100/?woman,smile",
+      image: "https://images.unsplash.com/photo-1698349247927-1f3d0b75365d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
   const blogs = [
@@ -88,11 +91,18 @@ const Home = () => {
           Start Planning
         </a>
       </section>
-        {/* Features */}
-        <section className="px-4 py-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      {/* Features */}
+      <section className="px-4 py-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
         {features.map((feature, index) => (
-          <div key={index} className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden">
-            <img src={feature.image} alt={feature.title} className="w-full h-48 object-cover" />
+          <div
+            key={index}
+            className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden"
+          >
+            <img
+              src={feature.image}
+              alt={feature.title}
+              className="w-full h-48 object-cover"
+            />
             <div className="p-6">
               <div className="text-3xl mb-4">{feature.icon}</div>
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
@@ -100,6 +110,34 @@ const Home = () => {
             </div>
           </div>
         ))}
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-[#151635] py-20 px-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12">
+          What Our Users Say
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {testimonials.map((t, i) => (
+            <div
+              key={i}
+              className="bg-[#1F203F] p-6 rounded-xl shadow-md text-left"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <img
+                  src={t.image}
+                  alt={t.name}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 className="font-semibold text-white">{t.name}</h4>
+                  <p className="text-sm text-gray-400">{t.role}</p>
+                </div>
+              </div>
+              <p className="text-gray-300 italic">“{t.quote}”</p>
+            </div>
+          ))}
+        </div>
       </section>
     </main>
   );
