@@ -33,20 +33,23 @@ const Home = () => {
         "TravelPlanner completely changed how I organize my trips. It's a must-have!",
       name: "Haawa",
       role: "Digital Nomad",
-      image: "https://images.unsplash.com/photo-1729658394538-9421c0dc5aa0?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1729658394538-9421c0dc5aa0?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote:
         "The dashboard and guides are so intuitive. Saved me days of planning.",
       name: "Shiine",
       role: "Frequent Flyer",
-      image: "https://images.unsplash.com/photo-1615204937608-614bc888e88f?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1615204937608-614bc888e88f?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote: "This platform helped me plan my honeymoon stress-free!",
       name: "Ayaanle",
       role: "First-Time Traveler",
-      image: "https://images.unsplash.com/photo-1698349247927-1f3d0b75365d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1698349247927-1f3d0b75365d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
   const blogs = [
@@ -54,21 +57,21 @@ const Home = () => {
       title: "Top 10 European Cities to Visit in 2025",
       snippet:
         "Looking for inspiration for your next trip? Check out our top picks for vibrant cities to explore...",
-      image: "https://source.unsplash.com/400x300/?europe,city",
+      image: "https://images.unsplash.com/photo-1613236213658-ec84c1e85d1f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/european-cities-2025",
     },
     {
       title: "Packing Like a Pro: Tips You Need",
       snippet:
         "From rolling clothes to power bank essentials—our ultimate packing guide saves space and time...",
-      image: "https://source.unsplash.com/400x300/?packing,suitcase",
+      image: "https://images.unsplash.com/photo-1643779375222-81cbf9c15c66?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/packing-guide",
     },
     {
       title: "How to Travel on a Budget Without Missing Out",
       snippet:
         "Budget travel doesn't mean cheap experiences. Learn how to maximize every cent...",
-      image: "https://source.unsplash.com/400x300/?budget,backpacking",
+      image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/budget-travel",
     },
   ];
@@ -139,17 +142,29 @@ const Home = () => {
           ))}
         </div>
       </section>
-       {/* Blog Preview */}
-       <section className="py-20 px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Travel Tips & Guides</h2>
+      {/* Blog Preview */}
+      <section className="py-20 px-4 max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Travel Tips & Guides
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogs.map((blog, i) => (
-            <div key={i} className="bg-[#1B1C3D] rounded-xl overflow-hidden shadow hover:shadow-lg">
-              <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
+            <div
+              key={i}
+              className="bg-[#1B1C3D] rounded-xl overflow-hidden shadow hover:shadow-lg"
+            >
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full h-48 object-cover"
+              />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
                 <p className="text-gray-400 text-sm mb-4">{blog.snippet}</p>
-                <a href={blog.link} className="text-purple-400 hover:underline text-sm font-medium">
+                <a
+                  href={blog.link}
+                  className="text-purple-400 hover:underline text-sm font-medium"
+                >
                   Read more →
                 </a>
               </div>
@@ -157,7 +172,21 @@ const Home = () => {
           ))}
         </div>
       </section>
-
+      {/* CTA */}
+      <section className="bg-[#101124] px-6 py-20 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          Ready to Explore the World?
+        </h2>
+        <p className="text-gray-300 mb-6">
+          Join TravelPlanner today and make your dream trips a reality.
+        </p>
+        <a
+          href="/signup"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition"
+        >
+          Get Started
+        </a>
+      </section>
     </main>
   );
 };
