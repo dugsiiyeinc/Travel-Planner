@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="bg-gray-900 text-gray-300 shadow-sm sticky top-0 z-50">
+    <nav
+      className={`fixed top-0 w-full z-50 transition-colors duration-300 ${
+        isScrolled ? "bg-gray-900 shadow-md" : "bg-[#0E0F2C]"
+      } text-gray-300`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
@@ -22,54 +36,24 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) => 
-                `px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive 
-                    ? 'text-blue-400 border-b-2 border-blue-400' 
-                    : 'text-gray-400 hover:text-white hover:border-b-2 hover:border-gray-500'
-                }`
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink 
-              to="/dashboard" 
-              className={({ isActive }) => 
-                `px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive 
-                    ? 'text-blue-400 border-b-2 border-blue-400' 
-                    : 'text-gray-400 hover:text-white hover:border-b-2 hover:border-gray-500'
-                }`
-              }
-            >
-              Dashboard
-            </NavLink>
-            <NavLink 
-              to="/trips" 
-              className={({ isActive }) => 
-                `px-3 py-2 text-sm font-medium ${
-                  isActive 
-                    ? 'text-blue-400 border-b-2 border-blue-400' 
-                    : 'text-gray-400 hover:text-white hover:border-b-2 hover:border-gray-500'
-                }`
-              }
-            >
-              Trips
-            </NavLink>
-            <NavLink 
-              to="/profile" 
-              className={({ isActive }) => 
-                `px-3 py-2 text-sm font-medium ${
-                  isActive 
-                    ? 'text-blue-400 border-b-2 border-blue-400' 
-                    : 'text-gray-400 hover:text-white hover:border-b-2 hover:border-gray-500'
-                }`
-              }
-            >
-              Profile
-            </NavLink>
+            {["/", "/dashboard", "/trips", "/profile"].map((path, idx) => {
+              const labels = ["Home", "Dashboard", "Trips", "Profile"];
+              return (
+                <NavLink
+                  key={path}
+                  to={path}
+                  className={({ isActive }) =>
+                    `px-3 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "text-blue-400 border-b-2 border-blue-400"
+                        : "text-gray-400 hover:text-white hover:border-b-2 hover:border-gray-500"
+                    }`
+                  }
+                >
+                  {labels[idx]}
+                </NavLink>
+              );
+            })}
           </div>
 
           {/* Mobile menu button */}
@@ -91,60 +75,27 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-gray-800 shadow-lg`}>
+      <div className={`md:hidden ${isOpen ? "block" : "hidden"} bg-gray-800 shadow-lg`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <NavLink 
-            to="/" 
-            onClick={toggleMenu}
-            className={({ isActive }) => 
-              `block px-3 py-2 rounded-md text-base font-medium ${
-                isActive 
-                  ? 'bg-gray-700 text-blue-400' 
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink 
-            to="/dashboard" 
-            onClick={toggleMenu}
-            className={({ isActive }) => 
-              `block px-3 py-2 rounded-md text-base font-medium ${
-                isActive 
-                  ? 'bg-gray-700 text-blue-400' 
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`
-            }
-          >
-            Dashboard
-          </NavLink>
-          <NavLink 
-            to="/trips" 
-            onClick={toggleMenu}
-            className={({ isActive }) => 
-              `block px-3 py-2 rounded-md text-base font-medium ${
-                isActive 
-                  ? 'bg-gray-700 text-blue-400' 
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`
-            }
-          >
-            Trips
-          </NavLink>
-          <NavLink 
-            to="/profile" 
-            onClick={toggleMenu}
-            className={({ isActive }) => 
-              `block px-3 py-2 rounded-md text-base font-medium ${
-                isActive 
-                  ? 'bg-gray-700 text-blue-400' 
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`
-            }
-          >
-            Profile
-          </NavLink>
+          {["/", "/dashboard", "/trips", "/profile"].map((path, idx) => {
+            const labels = ["Home", "Dashboard", "Trips", "Profile"];
+            return (
+              <NavLink
+                key={path}
+                to={path}
+                onClick={toggleMenu}
+                className={({ isActive }) =>
+                  `block px-3 py-2 rounded-md text-base font-medium ${
+                    isActive
+                      ? "bg-gray-700 text-blue-400"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                  }`
+                }
+              >
+                {labels[idx]}
+              </NavLink>
+            );
+          })}
         </div>
       </div>
     </nav>
