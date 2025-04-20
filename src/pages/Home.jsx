@@ -139,6 +139,25 @@ const Home = () => {
           ))}
         </div>
       </section>
+       {/* Blog Preview */}
+       <section className="py-20 px-4 max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Travel Tips & Guides</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {blogs.map((blog, i) => (
+            <div key={i} className="bg-[#1B1C3D] rounded-xl overflow-hidden shadow hover:shadow-lg">
+              <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
+                <p className="text-gray-400 text-sm mb-4">{blog.snippet}</p>
+                <a href={blog.link} className="text-purple-400 hover:underline text-sm font-medium">
+                  Read more →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
     </main>
   );
 };
