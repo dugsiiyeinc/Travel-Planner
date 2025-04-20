@@ -1,6 +1,26 @@
 import React from 'react'
 
 const Home = () => {
+  const features = [
+    {
+      icon: "🌍",
+      title: "Explore Destinations",
+      description: "Discover top spots with curated travel guides and user tips.",
+      image: "https://source.unsplash.com/400x300/?destination,travel",
+    },
+    {
+      icon: "🧭",
+      title: "Plan Seamlessly",
+      description: "Smart itinerary planning with budget tracking and AI suggestions.",
+      image: "https://source.unsplash.com/400x300/?map,travel",
+    },
+    {
+      icon: "📊",
+      title: "Dashboard Insights",
+      description: "See your travel data, preferences, and past trips in one place.",
+      image: "https://source.unsplash.com/400x300/?data,dashboard",
+    },
+  ];
   const testimonials = [
     {
       quote: "TravelPlanner completely changed how I organize my trips. It's a must-have!",
