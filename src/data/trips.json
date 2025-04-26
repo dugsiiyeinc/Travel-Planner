@@ -454,5 +454,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "7",
+    "name": "African Safari",
+    "destination": "Serengeti, Tanzania",
+    "startDate": "2025-12-10",
+    "endDate": "2025-12-20",
+    "budget": 5500,
+    "description": "Wildlife safari adventure in the heart of the Serengeti.",
+    "image": "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-12-10",
+        "activities": [
+          "Arrival in Arusha",
+          "Transfer to safari lodge",
+          "Evening wildlife briefing"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-12-11",
+        "activities": [
+          "Morning game drive",
+          "Visit Maasai village",
+          "Sunset safari"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-12-12",
+        "activities": [
+          "Hot air balloon over Serengeti",
+          "Bush breakfast",
+          "Afternoon wildlife tracking"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-12-13",
+        "activities": [
+          "Transfer to Ngorongoro Crater",
+          "Full-day crater exploration",
+          "Lodge stay with crater views"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-12-14",
+        "activities": [
+          "Lake Manyara birdwatching",
+          "Tree-climbing lions spotting",
+          "Cultural dance performance"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-12-15",
+        "activities": [
+          "Return to Serengeti for final game drive",
+          "Sundowner drinks in the bush",
+          "Farewell dinner under the stars"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-12-16",
+        "activities": [
+          "Morning walking safari",
+          "Transfer to Arusha airport",
+          "Departure from Tanzania"
+        ]
+      }
+    ]
   }
 ]
