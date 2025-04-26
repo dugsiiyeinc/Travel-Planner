@@ -150,5 +150,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "3",
+    "name": "Mountain Expedition",
+    "destination": "Swiss Alps, Switzerland",
+    "startDate": "2025-08-05",
+    "endDate": "2025-08-15",
+    "budget": 4200,
+    "description": "Hiking and skiing in the breathtaking Swiss Alps.",
+    "image": "https://images.unsplash.com/photo-1476231682828-37e571bc172f",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-08-05",
+        "activities": [
+          "Arrival in Zurich",
+          "Train to Zermatt",
+          "Check-in at mountain lodge"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-08-06",
+        "activities": [
+          "Matterhorn Glacier Paradise visit",
+          "Skiing at Gornergrat",
+          "Fondue dinner"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-08-07",
+        "activities": [
+          "Five Lakes Hike (Stellisee, Grindjisee)",
+          "Picnic by alpine lake",
+          "Stargazing tour"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-08-08",
+        "activities": [
+          "Train to Jungfraujoch (Top of Europe)",
+          "Ice Palace exploration",
+          "Return to Zermatt"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-08-09",
+        "activities": [
+          "Paragliding over Matterhorn",
+          "Relaxation at spa",
+          "Raclette dinner"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-08-10",
+        "activities": [
+          "Day trip to Lucerne",
+          "Chapel Bridge & Lion Monument visit",
+          "Boat ride on Lake Lucerne"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-08-11",
+        "activities": [
+          "Final hike to Riffelsee",
+          "Souvenir shopping in Zermatt",
+          "Departure to Zurich"
+        ]
+      }
+    ]
   }
 ]
