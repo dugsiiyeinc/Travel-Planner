@@ -606,5 +606,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "9",
+    "name": "Northern Lights Quest",
+    "destination": "Reykjavik, Iceland",
+    "startDate": "2026-02-14",
+    "endDate": "2026-02-21",
+    "budget": 3700,
+    "description": "Chasing the Aurora Borealis with geothermal spa visits.",
+    "image": "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2026-02-14",
+        "activities": [
+          "Arrival in Reykjavik",
+          "Check-in at ice hotel",
+          "Northern lights hunt"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2026-02-15",
+        "activities": [
+          "Golden Circle tour",
+          "Blue Lagoon spa visit",
+          "Icelandic seafood feast"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2026-02-16",
+        "activities": [
+          "South Coast waterfalls (Seljalandsfoss, Skógafoss)",
+          "Black sand beach visit",
+          "Glacier hike"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2026-02-17",
+        "activities": [
+          "Jökulsárlón Glacier Lagoon boat tour",
+          "Diamond Beach walk",
+          "Cozy lodge stay"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2026-02-18",
+        "activities": [
+          "Return to Reykjavik",
+          "Whale watching tour",
+          "Underground lava cave exploration"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2026-02-19",
+        "activities": [
+          "Sky Lagoon relaxation",
+          "Reykjavik city walk (Hallgrímskirkja, Harpa)",
+          "Farewell dinner with local delicacies"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2026-02-20",
+        "activities": [
+          "Final soak at Secret Lagoon",
+          "Souvenir shopping for woolens",
+          "Departure from Iceland"
+        ]
+      }
+    ]
   }
 ]
