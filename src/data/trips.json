@@ -74,5 +74,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "2",
+    "name": "Tropical Paradise",
+    "destination": "Bali, Indonesia",
+    "startDate": "2025-07-10",
+    "endDate": "2025-07-20",
+    "budget": 2800,
+    "description": "Relaxing beach vacation with cultural tours and water activities.",
+    "image": "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-07-10",
+        "activities": [
+          "Arrival in Denpasar",
+          "Transfer to Ubud resort",
+          "Traditional Balinese dinner"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-07-11",
+        "activities": [
+          "Visit Tanah Lot Temple",
+          "Beach relaxation at Seminyak",
+          "Sunset seafood dinner"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-07-12",
+        "activities": [
+          "Tegalalang Rice Terrace hike",
+          "Balinese cooking class",
+          "Evening spa treatment"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-07-13",
+        "activities": [
+          "Snorkeling at Nusa Penida",
+          "Visit Kelingking Beach",
+          "Return to mainland for dinner"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-07-14",
+        "activities": [
+          "Monkey Forest & Ubud Palace tour",
+          "Silver jewelry workshop",
+          "Dance performance at Ubud Palace"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-07-15",
+        "activities": [
+          "Day trip to Mount Batur sunrise trek",
+          "Hot springs relaxation",
+          "Private beachfront BBQ"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-07-16",
+        "activities": [
+          "Final massage at resort",
+          "Explore Ubud Market",
+          "Departure from Bali"
+        ]
+      }
+    ]
   }
 ]
