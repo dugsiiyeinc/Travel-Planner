@@ -682,5 +682,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "10",
+    "name": "Australian Outback",
+    "destination": "Sydney & Uluru, Australia",
+    "startDate": "2026-03-05",
+    "endDate": "2026-03-18",
+    "budget": 6000,
+    "description": "Explore Sydney's landmarks and the mystical Uluru.",
+    "image": "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2026-03-05",
+        "activities": [
+          "Arrival in Sydney",
+          "Opera House tour",
+          "Harbor dinner cruise"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2026-03-06",
+        "activities": [
+          "Bondi Beach visit",
+          "Flight to Ayers Rock",
+          "Sunset at Uluru"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2026-03-07",
+        "activities": [
+          "Uluru base walk",
+          "Aboriginal cultural tour",
+          "Field of Light installation"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2026-03-08",
+        "activities": [
+          "Kata Tjuta (Olgas) hike",
+          "Helicopter ride over Outback",
+          "Sounds of Silence dinner"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2026-03-09",
+        "activities": [
+          "Return to Sydney",
+          "Taronga Zoo visit",
+          "BridgeClimb experience"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2026-03-10",
+        "activities": [
+          "Blue Mountains day trip",
+          "Scenic World rides",
+          "Koala sanctuary visit"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2026-03-11",
+        "activities": [
+          "Manly Beach ferry ride",
+          "Final seafood lunch at Circular Quay",
+          "Departure from Sydney"
+        ]
+      }
+    ]
   }
 ]
