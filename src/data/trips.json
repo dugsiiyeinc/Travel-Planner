@@ -378,5 +378,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "6",
+    "name": "Japanese Discovery",
+    "destination": "Tokyo & Kyoto, Japan",
+    "startDate": "2025-11-05",
+    "endDate": "2025-11-15",
+    "budget": 4000,
+    "description": "Explore modern Tokyo and traditional Kyoto with cultural experiences.",
+    "image": "https://images.unsplash.com/photo-1492571350019-22de08371fd3",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-11-05",
+        "activities": [
+          "Arrival in Tokyo",
+          "Shibuya Crossing visit",
+          "Ramen tasting"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-11-06",
+        "activities": [
+          "Asakusa Temple tour",
+          "Bullet train to Kyoto",
+          "Tea ceremony experience"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-11-07",
+        "activities": [
+          "Fushimi Inari Shrine hike",
+          "Nishiki Market food tour",
+          "Gion district geisha spotting"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-11-08",
+        "activities": [
+          "Day trip to Nara (Todai-ji Temple)",
+          "Deer park visit",
+          "Kaiseki dinner in Kyoto"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-11-09",
+        "activities": [
+          "Arashiyama Bamboo Forest",
+          "Monkey Park visit",
+          "Kimono rental photoshoot"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-11-10",
+        "activities": [
+          "Return to Tokyo",
+          "Akihabara electronics district",
+          "Robot Restaurant show"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-11-11",
+        "activities": [
+          "Tsukiji Outer Market breakfast",
+          "TeamLab Planets digital art museum",
+          "Departure from Tokyo"
+        ]
+      }
+    ]
   }
 ]
