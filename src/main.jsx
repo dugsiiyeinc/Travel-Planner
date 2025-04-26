@@ -4,9 +4,12 @@ import "./index.css";
 import App from "./App.jsx";
 import { RouterProvider } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes.jsx";
+import { TripProvider } from "./context/TripContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={AppRoutes} />
+    <TripProvider>
+      <RouterProvider router={AppRoutes} />
+    </TripProvider>
   </StrictMode>
 );

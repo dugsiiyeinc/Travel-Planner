@@ -1,66 +1,84 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   const features = [
     {
       icon: "🌍",
       title: "Explore Destinations",
-      description: "Discover top spots with curated travel guides and user tips.",
-      image: "https://images.unsplash.com/photo-1501425359013-96058e410cfc?q=80&w=2078&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Discover top spots with curated travel guides and user tips.",
+      image:
+        "https://images.unsplash.com/photo-1501425359013-96058e410cfc?q=80&w=2078&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       icon: "🧭",
       title: "Plan Seamlessly",
-      description: "Smart itinerary planning with budget tracking and AI suggestions.",
-      image: "https://images.unsplash.com/photo-1617046774731-b2c14cc8c377?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Smart itinerary planning with budget tracking and AI suggestions.",
+      image:
+        "https://images.unsplash.com/photo-1617046774731-b2c14cc8c377?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       icon: "📊",
       title: "Dashboard Insights",
-      description: "See your travel data, preferences, and past trips in one place.",
-      image: "https://images.unsplash.com/photo-1639060015191-9d83063eab2a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "See your travel data, preferences, and past trips in one place.",
+      image:
+        "https://images.unsplash.com/photo-1639060015191-9d83063eab2a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
   const testimonials = [
     {
-      quote: "TravelPlanner completely changed how I organize my trips. It's a must-have!",
+      quote:
+        "TravelPlanner completely changed how I organize my trips. It's a must-have!",
       name: "Haawa",
       role: "Digital Nomad",
-      image: "https://images.unsplash.com/photo-1729658394538-9421c0dc5aa0?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1729658394538-9421c0dc5aa0?q=80&w=2014&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      quote: "The dashboard and guides are so intuitive. Saved me days of planning.",
+      quote:
+        "The dashboard and guides are so intuitive. Saved me days of planning.",
       name: "Shiine",
       role: "Frequent Flyer",
-      image: "https://images.unsplash.com/photo-1615204937608-614bc888e88f?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1615204937608-614bc888e88f?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote: "This platform helped me plan my honeymoon stress-free!",
       name: "Ayaanle",
       role: "First-Time Traveler",
-      image: "https://images.unsplash.com/photo-1698349247927-1f3d0b75365d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1698349247927-1f3d0b75365d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
   const blogs = [
     {
       title: "Top 10 European Cities to Visit in 2025",
-      snippet: "Looking for inspiration for your next trip? Check out our top picks for vibrant cities to explore...",
-      image: "https://images.unsplash.com/photo-1613236213658-ec84c1e85d1f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      snippet:
+        "Looking for inspiration for your next trip? Check out our top picks for vibrant cities to explore...",
+      image:
+        "https://images.unsplash.com/photo-1613236213658-ec84c1e85d1f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/european-cities-2025",
     },
     {
       title: "Packing Like a Pro: Tips You Need",
-      snippet: "From rolling clothes to power bank essentials—our ultimate packing guide saves space and time...",
-      image: "https://images.unsplash.com/photo-1643779375222-81cbf9c15c66?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      snippet:
+        "From rolling clothes to power bank essentials—our ultimate packing guide saves space and time...",
+      image:
+        "https://images.unsplash.com/photo-1643779375222-81cbf9c15c66?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/packing-guide",
     },
     {
       title: "How to Travel on a Budget Without Missing Out",
-      snippet: "Budget travel doesn't mean cheap experiences. Learn how to maximize every cent...",
-      image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      snippet:
+        "Budget travel doesn't mean cheap experiences. Learn how to maximize every cent...",
+      image:
+        "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/budget-travel",
     },
   ];
@@ -68,7 +86,7 @@ const Home = () => {
   return (
     <div className="bg-[#0E0F2C] text-white min-h-screen">
       <Navbar />
-      
+
       <main className="pt-20">
         {/* Hero section */}
         <section className="flex flex-col items-center text-center px-4 py-20 bg-gradient-to-b from-[#0E0F2C] to-[#151635]">
@@ -79,25 +97,25 @@ const Home = () => {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8">
-            TravelPlanner helps you create unforgettable journeys with smart tools
-            and inspiring guides.
+            TravelPlanner helps you create unforgettable journeys with smart
+            tools and inspiring guides.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="/create-trip"
+            <NavLink
+              to="/createtrip"
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-colors"
             >
               Start Planning
-            </a>
-            <a
-              href="/my-trips"
+            </NavLink>
+            <NavLink
+              to="/mytrip"
               className="bg-transparent border border-gray-600 hover:bg-gray-700/50 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-colors"
             >
               View My Trips
-            </a>
+            </NavLink>
           </div>
         </section>
-        
+
         {/* Features */}
         <section className="px-4 py-16 max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -118,7 +136,9 @@ const Home = () => {
                 </div>
                 <div className="p-6">
                   <div className="text-3xl mb-4">{feature.icon}</div>
-                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3">
+                    {feature.title}
+                  </h3>
                   <p className="text-gray-400">{feature.description}</p>
                 </div>
               </div>
@@ -155,7 +175,7 @@ const Home = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Blog Preview */}
         <section className="py-20 px-4 max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -163,7 +183,10 @@ const Home = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {blogs.map((blog, index) => (
-              <div key={index} className="bg-[#1B1C3D] p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+              <div
+                key={index}
+                className="bg-[#1B1C3D] p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              >
                 <img
                   src={blog.image}
                   alt={blog.title}
@@ -171,12 +194,12 @@ const Home = () => {
                 />
                 <h3 className="text-xl font-semibold mb-4">{blog.title}</h3>
                 <p className="text-gray-300 mb-4">{blog.snippet}</p>
-                <a
-                  href={blog.link}
+                <NavLink
+                  to={blog.link}
                   className="text-blue-400 hover:text-blue-500 font-semibold"
                 >
                   Read more
-                </a>
+                </NavLink>
               </div>
             ))}
           </div>

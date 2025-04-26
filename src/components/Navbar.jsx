@@ -53,7 +53,7 @@ const Navbar = () => {
               Create Trip
             </NavLink>
             <NavLink
-              to="/my-trips"
+              to="/mytrip"
               className={({ isActive }) =>
                 `flex items-center px-3 py-2 text-sm font-medium transition-all rounded-lg ${
                   isActive
@@ -105,7 +105,7 @@ const Navbar = () => {
       <div className={`md:hidden ${isOpen ? "block" : "hidden"} bg-gray-800/95 backdrop-blur-sm shadow-xl`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <NavLink
-            to="/create-trip"
+            to="/createtrip"
             onClick={toggleMenu}
             className={({ isActive }) =>
               `flex items-center px-3 py-3 rounded-md text-base font-medium ${
@@ -119,7 +119,7 @@ const Navbar = () => {
             Create Trip
           </NavLink>
           <NavLink
-            to="/my-trips"
+            to="/mytrip"
             onClick={toggleMenu}
             className={({ isActive }) =>
               `flex items-center px-3 py-3 rounded-md text-base font-medium ${
