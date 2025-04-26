@@ -1,4 +1,6 @@
 import React from "react";
+import Navbar from "../components/Navbar";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   const features = [
@@ -27,6 +29,7 @@ const Home = () => {
         "https://images.unsplash.com/photo-1639060015191-9d83063eab2a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
+
   const testimonials = [
     {
       quote:
@@ -52,142 +55,157 @@ const Home = () => {
         "https://images.unsplash.com/photo-1698349247927-1f3d0b75365d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
+
   const blogs = [
     {
       title: "Top 10 European Cities to Visit in 2025",
       snippet:
         "Looking for inspiration for your next trip? Check out our top picks for vibrant cities to explore...",
-      image: "https://images.unsplash.com/photo-1613236213658-ec84c1e85d1f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1613236213658-ec84c1e85d1f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/european-cities-2025",
     },
     {
       title: "Packing Like a Pro: Tips You Need",
       snippet:
         "From rolling clothes to power bank essentials—our ultimate packing guide saves space and time...",
-      image: "https://images.unsplash.com/photo-1643779375222-81cbf9c15c66?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1643779375222-81cbf9c15c66?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/packing-guide",
     },
     {
       title: "How to Travel on a Budget Without Missing Out",
       snippet:
         "Budget travel doesn't mean cheap experiences. Learn how to maximize every cent...",
-      image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       link: "/blog/budget-travel",
     },
   ];
-  return (
-    <main className="bg-[#0E0F2C] text-white min-h-screen pt-20">
-      {/* Hero section */}
-      <section className="flex flex-col items-center text-center px-4 py-20">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Discover. Plan. Travel.{" "}
-          <span className="text-blue-500">Effortlessly.</span>
-        </h1>
-        <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
-          TravelPlanner helps you create unforgettable journeys with smart tools
-          and inspiring guides.
-        </p>
-        <a
-          href="/dashboard"
-          className="mt-8 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition"
-        >
-          Start Planning
-        </a>
-      </section>
-      {/* Features */}
-      <section className="px-4 py-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden"
-          >
-            <img
-              src={feature.image}
-              alt={feature.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-6">
-              <div className="text-3xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
-            </div>
-          </div>
-        ))}
-      </section>
 
-      {/* Testimonials */}
-      <section className="bg-[#151635] py-20 px-6 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12">
-          What Our Users Say
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="bg-[#1F203F] p-6 rounded-xl shadow-md text-left"
+  return (
+    <div className="bg-[#0E0F2C] text-white min-h-screen">
+      <Navbar />
+
+      <main className="pt-20">
+        {/* Hero section */}
+        <section className="flex flex-col items-center text-center px-4 py-20 bg-gradient-to-b from-[#0E0F2C] to-[#151635]">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl leading-tight">
+            Discover. Plan. Travel.{" "}
+            <span className="text-blue-400 bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+              Effortlessly.
+            </span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8">
+            TravelPlanner helps you create unforgettable journeys with smart
+            tools and inspiring guides.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <NavLink
+              to="/createtrip"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-colors"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <img
-                  src={t.image}
-                  alt={t.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                <div>
-                  <h4 className="font-semibold text-white">{t.name}</h4>
-                  <p className="text-sm text-gray-400">{t.role}</p>
+              Start Planning
+            </NavLink>
+            <NavLink
+              to="/mytrip"
+              className="bg-transparent border border-gray-600 hover:bg-gray-700/50 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-colors"
+            >
+              View My Trips
+            </NavLink>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section className="px-4 py-16 max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Why Choose <span className="text-blue-400">TravelPlanner</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="text-3xl mb-4">{feature.icon}</div>
+                  <h3 className="text-xl font-semibold mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-400">{feature.description}</p>
                 </div>
               </div>
-              <p className="text-gray-300 italic">“{t.quote}”</p>
-            </div>
-          ))}
-        </div>
-      </section>
-      {/* Blog Preview */}
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Travel Tips & Guides
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {blogs.map((blog, i) => (
-            <div
-              key={i}
-              className="bg-[#1B1C3D] rounded-xl overflow-hidden shadow hover:shadow-lg"
-            >
-              <img
-                src={blog.image}
-                alt={blog.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
-                <p className="text-gray-400 text-sm mb-4">{blog.snippet}</p>
-                <a
-                  href={blog.link}
-                  className="text-purple-400 hover:underline text-sm font-medium"
+            ))}
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="bg-[#151635] py-20 px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+              What Our <span className="text-blue-400">Travelers</span> Say
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {testimonials.map((t, i) => (
+                <div
+                  key={i}
+                  className="bg-[#1F203F] p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
                 >
-                  Read more →
-                </a>
-              </div>
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                    <div>
+                      <h4 className="font-semibold text-white">{t.name}</h4>
+                      <p className="text-sm text-gray-400">{t.role}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 italic">"{t.quote}"</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
-      {/* CTA */}
-      <section className="bg-[#101124] px-6 py-20 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Ready to Explore the World?
-        </h2>
-        <p className="text-gray-300 mb-6">
-          Join TravelPlanner today and make your dream trips a reality.
-        </p>
-        <a
-          href="/signup"
-          className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-medium transition"
-        >
-          Get Started
-        </a>
-      </section>
-    </main>
+          </div>
+        </section>
+
+        {/* Blog Preview */}
+        <section className="py-20 px-4 max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Latest <span className="text-blue-400">Blog Posts</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogs.map((blog, index) => (
+              <div
+                key={index}
+                className="bg-[#1B1C3D] p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-56 object-cover mb-6 rounded-xl"
+                />
+                <h3 className="text-xl font-semibold mb-4">{blog.title}</h3>
+                <p className="text-gray-300 mb-4">{blog.snippet}</p>
+                <NavLink
+                  to={blog.link}
+                  className="text-blue-400 hover:text-blue-500 font-semibold"
+                >
+                  Read more
+                </NavLink>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 };
 

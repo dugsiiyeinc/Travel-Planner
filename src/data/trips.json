@@ -1,0 +1,762 @@
+[
+  {
+    "id": "1",
+    "name": "European Adventure",
+    "destination": "Paris, France",
+    "startDate": "2025-06-15",
+    "endDate": "2025-06-30",
+    "budget": 3500,
+    "description": "Two-week romantic getaway to Paris with day trips to nearby cities.",
+    "image": "https://images.unsplash.com/photo-1431274172761-fca41d930114",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-06-15",
+        "activities": [
+          "Arrival in Paris",
+          "Check-in at hotel",
+          "Evening walk along Seine River"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-06-16",
+        "activities": [
+          "Eiffel Tower visit",
+          "Lunch at local bistro",
+          "Louvre Museum tour"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-06-17",
+        "activities": [
+          "Day trip to Versailles Palace",
+          "Picnic in Versailles Gardens",
+          "Return to Paris for dinner cruise"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-06-18",
+        "activities": [
+          "Montmartre & Sacré-Cœur exploration",
+          "Art workshop at Place du Tertre",
+          "Moulin Rouge show"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-06-19",
+        "activities": [
+          "Day trip to Loire Valley châteaux",
+          "Wine tasting at local vineyard",
+          "Return to Paris"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-06-20",
+        "activities": [
+          "Shopping in Le Marais",
+          "Visit Musée d'Orsay",
+          "Farewell dinner at Michelin-starred restaurant"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-06-21",
+        "activities": [
+          "Final stroll in Luxembourg Gardens",
+          "Souvenir shopping",
+          "Departure from Paris"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Tropical Paradise",
+    "destination": "Bali, Indonesia",
+    "startDate": "2025-07-10",
+    "endDate": "2025-07-20",
+    "budget": 2800,
+    "description": "Relaxing beach vacation with cultural tours and water activities.",
+    "image": "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-07-10",
+        "activities": [
+          "Arrival in Denpasar",
+          "Transfer to Ubud resort",
+          "Traditional Balinese dinner"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-07-11",
+        "activities": [
+          "Visit Tanah Lot Temple",
+          "Beach relaxation at Seminyak",
+          "Sunset seafood dinner"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-07-12",
+        "activities": [
+          "Tegalalang Rice Terrace hike",
+          "Balinese cooking class",
+          "Evening spa treatment"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-07-13",
+        "activities": [
+          "Snorkeling at Nusa Penida",
+          "Visit Kelingking Beach",
+          "Return to mainland for dinner"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-07-14",
+        "activities": [
+          "Monkey Forest & Ubud Palace tour",
+          "Silver jewelry workshop",
+          "Dance performance at Ubud Palace"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-07-15",
+        "activities": [
+          "Day trip to Mount Batur sunrise trek",
+          "Hot springs relaxation",
+          "Private beachfront BBQ"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-07-16",
+        "activities": [
+          "Final massage at resort",
+          "Explore Ubud Market",
+          "Departure from Bali"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Mountain Expedition",
+    "destination": "Swiss Alps, Switzerland",
+    "startDate": "2025-08-05",
+    "endDate": "2025-08-15",
+    "budget": 4200,
+    "description": "Hiking and skiing in the breathtaking Swiss Alps.",
+    "image": "https://images.unsplash.com/photo-1476231682828-37e571bc172f",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-08-05",
+        "activities": [
+          "Arrival in Zurich",
+          "Train to Zermatt",
+          "Check-in at mountain lodge"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-08-06",
+        "activities": [
+          "Matterhorn Glacier Paradise visit",
+          "Skiing at Gornergrat",
+          "Fondue dinner"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-08-07",
+        "activities": [
+          "Five Lakes Hike (Stellisee, Grindjisee)",
+          "Picnic by alpine lake",
+          "Stargazing tour"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-08-08",
+        "activities": [
+          "Train to Jungfraujoch (Top of Europe)",
+          "Ice Palace exploration",
+          "Return to Zermatt"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-08-09",
+        "activities": [
+          "Paragliding over Matterhorn",
+          "Relaxation at spa",
+          "Raclette dinner"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-08-10",
+        "activities": [
+          "Day trip to Lucerne",
+          "Chapel Bridge & Lion Monument visit",
+          "Boat ride on Lake Lucerne"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-08-11",
+        "activities": [
+          "Final hike to Riffelsee",
+          "Souvenir shopping in Zermatt",
+          "Departure to Zurich"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Desert Safari",
+    "destination": "Dubai, UAE",
+    "startDate": "2025-09-12",
+    "endDate": "2025-09-18",
+    "budget": 3200,
+    "description": "Luxury desert experience with city tours and adventure activities.",
+    "image": "https://images.unsplash.com/photo-1518684079-3c830dcef090",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-09-12",
+        "activities": [
+          "Arrival in Dubai",
+          "Check-in at Burj Al Arab",
+          "Dhow cruise dinner"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-09-13",
+        "activities": [
+          "Desert safari with dune bashing",
+          "Camel ride & BBQ dinner",
+          "Visit Dubai Mall"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-09-14",
+        "activities": [
+          "Burj Khalifa observation deck",
+          "Aquaventure Waterpark",
+          "Dinner at Atlantis"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-09-15",
+        "activities": [
+          "Day trip to Abu Dhabi",
+          "Sheikh Zayed Mosque tour",
+          "Ferrari World visit"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-09-16",
+        "activities": [
+          "Skydiving over Palm Jumeirah",
+          "Beach club relaxation",
+          "Seafood feast at Pierchic"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-09-17",
+        "activities": [
+          "Gold & Spice Souk shopping",
+          "Dubai Frame visit",
+          "Farewell desert stargazing"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-09-18",
+        "activities": [
+          "Final spa treatment",
+          "Brunch at Burj Al Arab",
+          "Departure from Dubai"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Historic Italy",
+    "destination": "Rome & Florence, Italy",
+    "startDate": "2025-10-01",
+    "endDate": "2025-10-10",
+    "budget": 3800,
+    "description": "Cultural tour of Italy's most historic cities with gourmet dining.",
+    "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-10-01",
+        "activities": [
+          "Arrival in Rome",
+          "Visit Colosseum",
+          "Dinner in Trastevere"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-10-02",
+        "activities": [
+          "Vatican City tour",
+          "Train to Florence",
+          "Check-in at boutique hotel"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-10-03",
+        "activities": [
+          "Uffizi Gallery visit",
+          "Ponte Vecchio stroll",
+          "Tuscan wine tasting"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-10-04",
+        "activities": [
+          "Day trip to Pisa & Cinque Terre",
+          "Leaning Tower photo op",
+          "Seafood dinner in Vernazza"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-10-05",
+        "activities": [
+          "Accademia Gallery (David statue)",
+          "Oltrarno artisan district tour",
+          "Cooking class with local chef"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-10-06",
+        "activities": [
+          "Chianti countryside tour",
+          "Vineyard lunch",
+          "Return to Rome by train"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-10-07",
+        "activities": [
+          "Trevi Fountain & Pantheon visit",
+          "Last-minute shopping at Via del Corso",
+          "Departure from Rome"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Japanese Discovery",
+    "destination": "Tokyo & Kyoto, Japan",
+    "startDate": "2025-11-05",
+    "endDate": "2025-11-15",
+    "budget": 4000,
+    "description": "Explore modern Tokyo and traditional Kyoto with cultural experiences.",
+    "image": "https://images.unsplash.com/photo-1492571350019-22de08371fd3",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-11-05",
+        "activities": [
+          "Arrival in Tokyo",
+          "Shibuya Crossing visit",
+          "Ramen tasting"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-11-06",
+        "activities": [
+          "Asakusa Temple tour",
+          "Bullet train to Kyoto",
+          "Tea ceremony experience"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-11-07",
+        "activities": [
+          "Fushimi Inari Shrine hike",
+          "Nishiki Market food tour",
+          "Gion district geisha spotting"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-11-08",
+        "activities": [
+          "Day trip to Nara (Todai-ji Temple)",
+          "Deer park visit",
+          "Kaiseki dinner in Kyoto"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-11-09",
+        "activities": [
+          "Arashiyama Bamboo Forest",
+          "Monkey Park visit",
+          "Kimono rental photoshoot"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-11-10",
+        "activities": [
+          "Return to Tokyo",
+          "Akihabara electronics district",
+          "Robot Restaurant show"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-11-11",
+        "activities": [
+          "Tsukiji Outer Market breakfast",
+          "TeamLab Planets digital art museum",
+          "Departure from Tokyo"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "African Safari",
+    "destination": "Serengeti, Tanzania",
+    "startDate": "2025-12-10",
+    "endDate": "2025-12-20",
+    "budget": 5500,
+    "description": "Wildlife safari adventure in the heart of the Serengeti.",
+    "image": "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-12-10",
+        "activities": [
+          "Arrival in Arusha",
+          "Transfer to safari lodge",
+          "Evening wildlife briefing"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-12-11",
+        "activities": [
+          "Morning game drive",
+          "Visit Maasai village",
+          "Sunset safari"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-12-12",
+        "activities": [
+          "Hot air balloon over Serengeti",
+          "Bush breakfast",
+          "Afternoon wildlife tracking"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-12-13",
+        "activities": [
+          "Transfer to Ngorongoro Crater",
+          "Full-day crater exploration",
+          "Lodge stay with crater views"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-12-14",
+        "activities": [
+          "Lake Manyara birdwatching",
+          "Tree-climbing lions spotting",
+          "Cultural dance performance"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-12-15",
+        "activities": [
+          "Return to Serengeti for final game drive",
+          "Sundowner drinks in the bush",
+          "Farewell dinner under the stars"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-12-16",
+        "activities": [
+          "Morning walking safari",
+          "Transfer to Arusha airport",
+          "Departure from Tanzania"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "Caribbean Cruise",
+    "destination": "Bahamas & Jamaica",
+    "startDate": "2026-01-08",
+    "endDate": "2026-01-15",
+    "budget": 4500,
+    "description": "Luxury cruise with island-hopping and beach relaxation.",
+    "image": "https://images.unsplash.com/photo-1559128010-7c1ad6e1b634",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2026-01-08",
+        "activities": [
+          "Embark in Miami",
+          "Welcome dinner on board",
+          "Sunset deck party"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2026-01-09",
+        "activities": [
+          "Nassau, Bahamas excursion",
+          "Snorkeling at Blue Lagoon",
+          "Pirate-themed dinner"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2026-01-10",
+        "activities": [
+          "Private island beach day",
+          "Jet ski rental",
+          "Beach BBQ"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2026-01-11",
+        "activities": [
+          "Ocho Rios, Jamaica docking",
+          "Dunn's River Falls climb",
+          "Reggae night on board"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2026-01-12",
+        "activities": [
+          "Grand Cayman stingray city tour",
+          "Seven Mile Beach relaxation",
+          "Gourmet seafood dinner"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2026-01-13",
+        "activities": [
+          "At-sea day (spa & poolside relaxation)",
+          "Captain's gala dinner",
+          "Broadway-style show"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2026-01-14",
+        "activities": [
+          "Key West walking tour",
+          "Hemingway House visit",
+          "Final sunset sailaway party"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "9",
+    "name": "Northern Lights Quest",
+    "destination": "Reykjavik, Iceland",
+    "startDate": "2026-02-14",
+    "endDate": "2026-02-21",
+    "budget": 3700,
+    "description": "Chasing the Aurora Borealis with geothermal spa visits.",
+    "image": "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2026-02-14",
+        "activities": [
+          "Arrival in Reykjavik",
+          "Check-in at ice hotel",
+          "Northern lights hunt"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2026-02-15",
+        "activities": [
+          "Golden Circle tour",
+          "Blue Lagoon spa visit",
+          "Icelandic seafood feast"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2026-02-16",
+        "activities": [
+          "South Coast waterfalls (Seljalandsfoss, Skógafoss)",
+          "Black sand beach visit",
+          "Glacier hike"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2026-02-17",
+        "activities": [
+          "Jökulsárlón Glacier Lagoon boat tour",
+          "Diamond Beach walk",
+          "Cozy lodge stay"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2026-02-18",
+        "activities": [
+          "Return to Reykjavik",
+          "Whale watching tour",
+          "Underground lava cave exploration"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2026-02-19",
+        "activities": [
+          "Sky Lagoon relaxation",
+          "Reykjavik city walk (Hallgrímskirkja, Harpa)",
+          "Farewell dinner with local delicacies"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2026-02-20",
+        "activities": [
+          "Final soak at Secret Lagoon",
+          "Souvenir shopping for woolens",
+          "Departure from Iceland"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "Australian Outback",
+    "destination": "Sydney & Uluru, Australia",
+    "startDate": "2026-03-05",
+    "endDate": "2026-03-18",
+    "budget": 6000,
+    "description": "Explore Sydney's landmarks and the mystical Uluru.",
+    "image": "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2026-03-05",
+        "activities": [
+          "Arrival in Sydney",
+          "Opera House tour",
+          "Harbor dinner cruise"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2026-03-06",
+        "activities": [
+          "Bondi Beach visit",
+          "Flight to Ayers Rock",
+          "Sunset at Uluru"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2026-03-07",
+        "activities": [
+          "Uluru base walk",
+          "Aboriginal cultural tour",
+          "Field of Light installation"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2026-03-08",
+        "activities": [
+          "Kata Tjuta (Olgas) hike",
+          "Helicopter ride over Outback",
+          "Sounds of Silence dinner"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2026-03-09",
+        "activities": [
+          "Return to Sydney",
+          "Taronga Zoo visit",
+          "BridgeClimb experience"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2026-03-10",
+        "activities": [
+          "Blue Mountains day trip",
+          "Scenic World rides",
+          "Koala sanctuary visit"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2026-03-11",
+        "activities": [
+          "Manly Beach ferry ride",
+          "Final seafood lunch at Circular Quay",
+          "Departure from Sydney"
+        ]
+      }
+    ]
+  }
+]
