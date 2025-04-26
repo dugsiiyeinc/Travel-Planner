@@ -1,0 +1,78 @@
+[
+  {
+    "id": "1",
+    "name": "European Adventure",
+    "destination": "Paris, France",
+    "startDate": "2025-06-15",
+    "endDate": "2025-06-30",
+    "budget": 3500,
+    "description": "Two-week romantic getaway to Paris with day trips to nearby cities.",
+    "image": "https://images.unsplash.com/photo-1431274172761-fca41d930114",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-06-15",
+        "activities": [
+          "Arrival in Paris",
+          "Check-in at hotel",
+          "Evening walk along Seine River"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-06-16",
+        "activities": [
+          "Eiffel Tower visit",
+          "Lunch at local bistro",
+          "Louvre Museum tour"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-06-17",
+        "activities": [
+          "Day trip to Versailles Palace",
+          "Picnic in Versailles Gardens",
+          "Return to Paris for dinner cruise"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-06-18",
+        "activities": [
+          "Montmartre & Sacré-Cœur exploration",
+          "Art workshop at Place du Tertre",
+          "Moulin Rouge show"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-06-19",
+        "activities": [
+          "Day trip to Loire Valley châteaux",
+          "Wine tasting at local vineyard",
+          "Return to Paris"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-06-20",
+        "activities": [
+          "Shopping in Le Marais",
+          "Visit Musée d'Orsay",
+          "Farewell dinner at Michelin-starred restaurant"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-06-21",
+        "activities": [
+          "Final stroll in Luxembourg Gardens",
+          "Souvenir shopping",
+          "Departure from Paris"
+        ]
+      }
+    ]
+  }
+]
