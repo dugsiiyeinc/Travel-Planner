@@ -226,5 +226,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "4",
+    "name": "Desert Safari",
+    "destination": "Dubai, UAE",
+    "startDate": "2025-09-12",
+    "endDate": "2025-09-18",
+    "budget": 3200,
+    "description": "Luxury desert experience with city tours and adventure activities.",
+    "image": "https://images.unsplash.com/photo-1518684079-3c830dcef090",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-09-12",
+        "activities": [
+          "Arrival in Dubai",
+          "Check-in at Burj Al Arab",
+          "Dhow cruise dinner"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-09-13",
+        "activities": [
+          "Desert safari with dune bashing",
+          "Camel ride & BBQ dinner",
+          "Visit Dubai Mall"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-09-14",
+        "activities": [
+          "Burj Khalifa observation deck",
+          "Aquaventure Waterpark",
+          "Dinner at Atlantis"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-09-15",
+        "activities": [
+          "Day trip to Abu Dhabi",
+          "Sheikh Zayed Mosque tour",
+          "Ferrari World visit"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-09-16",
+        "activities": [
+          "Skydiving over Palm Jumeirah",
+          "Beach club relaxation",
+          "Seafood feast at Pierchic"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-09-17",
+        "activities": [
+          "Gold & Spice Souk shopping",
+          "Dubai Frame visit",
+          "Farewell desert stargazing"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-09-18",
+        "activities": [
+          "Final spa treatment",
+          "Brunch at Burj Al Arab",
+          "Departure from Dubai"
+        ]
+      }
+    ]
   }
 ]
