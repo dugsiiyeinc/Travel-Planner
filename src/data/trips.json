@@ -530,5 +530,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "8",
+    "name": "Caribbean Cruise",
+    "destination": "Bahamas & Jamaica",
+    "startDate": "2026-01-08",
+    "endDate": "2026-01-15",
+    "budget": 4500,
+    "description": "Luxury cruise with island-hopping and beach relaxation.",
+    "image": "https://images.unsplash.com/photo-1559128010-7c1ad6e1b634",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2026-01-08",
+        "activities": [
+          "Embark in Miami",
+          "Welcome dinner on board",
+          "Sunset deck party"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2026-01-09",
+        "activities": [
+          "Nassau, Bahamas excursion",
+          "Snorkeling at Blue Lagoon",
+          "Pirate-themed dinner"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2026-01-10",
+        "activities": [
+          "Private island beach day",
+          "Jet ski rental",
+          "Beach BBQ"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2026-01-11",
+        "activities": [
+          "Ocho Rios, Jamaica docking",
+          "Dunn's River Falls climb",
+          "Reggae night on board"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2026-01-12",
+        "activities": [
+          "Grand Cayman stingray city tour",
+          "Seven Mile Beach relaxation",
+          "Gourmet seafood dinner"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2026-01-13",
+        "activities": [
+          "At-sea day (spa & poolside relaxation)",
+          "Captain's gala dinner",
+          "Broadway-style show"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2026-01-14",
+        "activities": [
+          "Key West walking tour",
+          "Hemingway House visit",
+          "Final sunset sailaway party"
+        ]
+      }
+    ]
   }
 ]
