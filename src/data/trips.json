@@ -302,5 +302,81 @@
         ]
       }
     ]
+  },
+  {
+    "id": "5",
+    "name": "Historic Italy",
+    "destination": "Rome & Florence, Italy",
+    "startDate": "2025-10-01",
+    "endDate": "2025-10-10",
+    "budget": 3800,
+    "description": "Cultural tour of Italy's most historic cities with gourmet dining.",
+    "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140",
+    "status": "upcoming",
+    "itinerary": [
+      {
+        "day": 1,
+        "date": "2025-10-01",
+        "activities": [
+          "Arrival in Rome",
+          "Visit Colosseum",
+          "Dinner in Trastevere"
+        ]
+      },
+      {
+        "day": 2,
+        "date": "2025-10-02",
+        "activities": [
+          "Vatican City tour",
+          "Train to Florence",
+          "Check-in at boutique hotel"
+        ]
+      },
+      {
+        "day": 3,
+        "date": "2025-10-03",
+        "activities": [
+          "Uffizi Gallery visit",
+          "Ponte Vecchio stroll",
+          "Tuscan wine tasting"
+        ]
+      },
+      {
+        "day": 4,
+        "date": "2025-10-04",
+        "activities": [
+          "Day trip to Pisa & Cinque Terre",
+          "Leaning Tower photo op",
+          "Seafood dinner in Vernazza"
+        ]
+      },
+      {
+        "day": 5,
+        "date": "2025-10-05",
+        "activities": [
+          "Accademia Gallery (David statue)",
+          "Oltrarno artisan district tour",
+          "Cooking class with local chef"
+        ]
+      },
+      {
+        "day": 6,
+        "date": "2025-10-06",
+        "activities": [
+          "Chianti countryside tour",
+          "Vineyard lunch",
+          "Return to Rome by train"
+        ]
+      },
+      {
+        "day": 7,
+        "date": "2025-10-07",
+        "activities": [
+          "Trevi Fountain & Pantheon visit",
+          "Last-minute shopping at Via del Corso",
+          "Departure from Rome"
+        ]
+      }
+    ]
   }
 ]
