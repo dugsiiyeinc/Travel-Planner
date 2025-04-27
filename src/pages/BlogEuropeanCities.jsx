@@ -39,6 +39,14 @@ const BlogEuropeanCities = () => {
               stunning coastal views. Don't miss the Belém Tower and the vibrant
               LX Factory.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              2. Kraków, Poland
+            </h2>
+            <p>
+              This well-preserved medieval city offers a rich history at every
+              turn. The Wawel Castle and the historic Jewish Quarter are
+              must-sees.
+            </p>
           </article>
         </div>
       </main>
