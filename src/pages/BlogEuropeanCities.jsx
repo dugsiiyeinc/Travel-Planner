@@ -15,7 +15,15 @@ const BlogEuropeanCities = () => {
             <ArrowLeft className="mr-2" size={20} />
             Back to Home
           </NavLink>
-          <article className="prose prose-invert max-w-none"></article>
+          <article className="prose prose-invert max-w-none">
+            <div className="relative h-96 w-full mb-12 rounded-xl overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1613236213658-ec84c1e85d1f"
+                alt="European cities"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </article>
         </div>
       </main>
     </div>
