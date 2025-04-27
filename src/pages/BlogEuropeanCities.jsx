@@ -31,6 +31,14 @@ const BlogEuropeanCities = () => {
               In 2025, these cities stand out for their unique blend of history,
               culture, and modern attractions.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              1. Lisbon, Portugal
+            </h2>
+            <p>
+              Lisbon's charm lies in its colorful streets, historic trams, and
+              stunning coastal views. Don't miss the Belém Tower and the vibrant
+              LX Factory.
+            </p>
           </article>
         </div>
       </main>
