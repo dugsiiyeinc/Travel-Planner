@@ -25,6 +25,11 @@ const BlogPackingGuide = () => {
               />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Packing Like a Pro: Tips You Need</h1>
+            <p className="text-xl text-gray-300 mb-8">
+              Mastering the art of packing can transform your travel experience. These professional 
+              tips will help you pack efficiently, avoid baggage fees, and ensure you have everything 
+              you need.
+            </p>
           </article>
         </div>
       </main>
