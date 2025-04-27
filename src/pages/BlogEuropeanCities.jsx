@@ -23,6 +23,9 @@ const BlogEuropeanCities = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Top 10 European Cities to Visit in 2025
+            </h1>
           </article>
         </div>
       </main>
