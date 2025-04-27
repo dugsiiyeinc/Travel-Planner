@@ -15,6 +15,7 @@ const BlogEuropeanCities = () => {
             <ArrowLeft className="mr-2" size={20} />
             Back to Home
           </NavLink>
+          <article className="prose prose-invert max-w-none"></article>
         </div>
       </main>
     </div>
