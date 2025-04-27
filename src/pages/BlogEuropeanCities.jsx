@@ -79,6 +79,13 @@ const BlogEuropeanCities = () => {
               7. Ghent, Belgium
             </h2>
             <p>Ghent offers medieval beauty with fewer crowds than Bruges.</p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              8. Ljubljana, Slovenia
+            </h2>
+            <p>
+              This green capital with its pedestrian-friendly center is one of
+              Europe's hidden gems.
+            </p>
           </article>
         </div>
       </main>
