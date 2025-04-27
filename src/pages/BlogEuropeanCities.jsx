@@ -54,6 +54,13 @@ const BlogEuropeanCities = () => {
               Valencia shines with its futuristic City of Arts and Sciences,
               beautiful beaches, and the birthplace of paella.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              4. Edinburgh, Scotland
+            </h2>
+            <p>
+              Edinburgh's dramatic skyline, dominated by its castle, makes it
+              one of Europe's most picturesque capitals.
+            </p>
           </article>
         </div>
       </main>
