@@ -61,6 +61,13 @@ const BlogEuropeanCities = () => {
               Edinburgh's dramatic skyline, dominated by its castle, makes it
               one of Europe's most picturesque capitals.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              5. Tallinn, Estonia
+            </h2>
+            <p>
+              Tallinn's perfectly preserved medieval Old Town feels like
+              stepping into a fairy tale.
+            </p>
           </article>
         </div>
       </main>
