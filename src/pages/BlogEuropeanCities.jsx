@@ -68,6 +68,13 @@ const BlogEuropeanCities = () => {
               Tallinn's perfectly preserved medieval Old Town feels like
               stepping into a fairy tale.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              6. Porto, Portugal
+            </h2>
+            <p>
+              Famous for its port wine, Porto charms visitors with its colorful
+              riverside district and historic bookstores.
+            </p>
           </article>
         </div>
       </main>
