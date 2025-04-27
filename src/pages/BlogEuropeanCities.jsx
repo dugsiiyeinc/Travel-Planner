@@ -47,6 +47,13 @@ const BlogEuropeanCities = () => {
               turn. The Wawel Castle and the historic Jewish Quarter are
               must-sees.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              3. Valencia, Spain
+            </h2>
+            <p>
+              Valencia shines with its futuristic City of Arts and Sciences,
+              beautiful beaches, and the birthplace of paella.
+            </p>
           </article>
         </div>
       </main>
