@@ -24,6 +24,7 @@ const BlogPackingGuide = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Packing Like a Pro: Tips You Need</h1>
           </article>
         </div>
       </main>
