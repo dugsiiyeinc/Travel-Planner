@@ -100,7 +100,7 @@ const SignUp = () => {
               <div className="ml-3 text-sm">
                 <label htmlFor="terms" className="text-gray-300">
                   I agree to the{" "}
-                  <a href="/terms" className="text-blue-400 hover:underline">
+                  <a href="/signin" className="text-blue-400 hover:underline">
                     Terms and Conditions
                   </a>
                 </label>
