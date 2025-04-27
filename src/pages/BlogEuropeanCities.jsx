@@ -26,6 +26,11 @@ const BlogEuropeanCities = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Top 10 European Cities to Visit in 2025
             </h1>
+            <p className="text-xl text-gray-300 mb-8">
+              Europe continues to be a top destination for travelers worldwide.
+              In 2025, these cities stand out for their unique blend of history,
+              culture, and modern attractions.
+            </p>
           </article>
         </div>
       </main>
