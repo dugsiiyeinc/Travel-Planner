@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import sampleTrips from '../data/trips.json';
 
 const TripContext = createContext();
 
