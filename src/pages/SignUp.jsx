@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { UserPlus } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
   return (
@@ -100,9 +101,9 @@ const SignUp = () => {
               <div className="ml-3 text-sm">
                 <label htmlFor="terms" className="text-gray-300">
                   I agree to the{" "}
-                  <a href="/signup" className="text-blue-400 hover:underline">
+                  <NavLink to="/signup" className="text-blue-400 hover:underline">
                     Terms and Conditions
-                  </a>
+                  </NavLink>
                 </label>
               </div>
             </div>
