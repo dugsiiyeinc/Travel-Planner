@@ -15,12 +15,18 @@ const TripProvider = ({ children }) => {
     }
   }, []);
 
-  // src/context/TripContext.js
   const addTrip = (newTrip) => {
     const updatedTrips = [...trips, newTrip];
     setTrips(updatedTrips);
     localStorage.setItem("trips", JSON.stringify(updatedTrips));
   };
+
+  const deleteTrip = (tripId) => {
+    const updatedTrips = trips.filter(trip => trip.id !== tripId);
+    setTrips(updatedTrips);
+    localStorage.setItem('trips', JSON.stringify(updatedTrips));
+  };
+  
 
   return <TripContext.Provider value={{}}>{children}</TripContext.Provider>;
 };
