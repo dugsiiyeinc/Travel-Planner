@@ -86,6 +86,13 @@ const BlogEuropeanCities = () => {
               This green capital with its pedestrian-friendly center is one of
               Europe's hidden gems.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              9. Thessaloniki, Greece
+            </h2>
+            <p>
+              Greece's second city offers vibrant nightlife, history, and
+              affordable food.
+            </p>
           </article>
         </div>
       </main>
