@@ -87,6 +87,31 @@ const BlogPackingGuide = () => {
                 <li>Collapsible water bottle</li>
               </ul>
             </p>
+            <div className="mt-12 p-6 bg-[#1B1C3D] rounded-xl">
+              <h3 className="text-xl font-semibold mb-4">Packing Checklist</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-medium mb-2">Essentials</h4>
+                  <ul className="list-disc pl-6">
+                    <li>Passport/ID</li>
+                    <li>Boarding passes</li>
+                    <li>Credit cards/cash</li>
+                    <li>Travel insurance info</li>
+                    <li>Prescriptions</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-medium mb-2">Clothing</h4>
+                  <ul className="list-disc pl-6">
+                    <li>Weather-appropriate outfits</li>
+                    <li>Comfortable walking shoes</li>
+                    <li>Swimwear (if needed)</li>
+                    <li>Sleepwear</li>
+                    <li>Light jacket</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </article>
         </div>
       </main>
