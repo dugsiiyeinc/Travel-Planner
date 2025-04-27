@@ -93,6 +93,13 @@ const BlogEuropeanCities = () => {
               Greece's second city offers vibrant nightlife, history, and
               affordable food.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              10. Bergen, Norway
+            </h2>
+            <p>
+              Gateway to Norway's fjords, Bergen's colorful Bryggen wharf is
+              UNESCO-listed.
+            </p>
           </article>
         </div>
       </main>
