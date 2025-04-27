@@ -21,12 +21,19 @@ const TripProvider = ({ children }) => {
     localStorage.setItem("trips", JSON.stringify(updatedTrips));
   };
 
-  const deleteTrip = (tripId) => {
-    const updatedTrips = trips.filter(trip => trip.id !== tripId);
+  const updateTrip = (updatedTrip) => {
+    const updatedTrips = trips.map((trip) =>
+      trip.id === updatedTrip.id ? updatedTrip : trip
+    );
     setTrips(updatedTrips);
-    localStorage.setItem('trips', JSON.stringify(updatedTrips));
+    localStorage.setItem("trips", JSON.stringify(updatedTrips));
   };
-  
+
+  const deleteTrip = (tripId) => {
+    const updatedTrips = trips.filter((trip) => trip.id !== tripId);
+    setTrips(updatedTrips);
+    localStorage.setItem("trips", JSON.stringify(updatedTrips));
+  };
 
   return <TripContext.Provider value={{}}>{children}</TripContext.Provider>;
 };
