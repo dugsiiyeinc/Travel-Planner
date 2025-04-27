@@ -100,6 +100,19 @@ const BlogEuropeanCities = () => {
               Gateway to Norway's fjords, Bergen's colorful Bryggen wharf is
               UNESCO-listed.
             </p>
+            <div className="mt-12 p-6 bg-[#1B1C3D] rounded-xl">
+              <h3 className="text-xl font-semibold mb-4">
+                Planning Your European Adventure
+              </h3>
+              <p>
+                When visiting multiple European cities, consider rail passes
+                like Eurail for flexible and affordable travel.
+              </p>
+              <p className="mt-4">
+                Many cities offer tourist cards for public transport and museums
+                — a great way to save money.
+              </p>
+            </div>
           </article>
         </div>
       </main>
