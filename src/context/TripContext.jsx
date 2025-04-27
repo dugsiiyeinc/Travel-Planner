@@ -35,9 +35,11 @@ const TripProvider = ({ children }) => {
     localStorage.setItem("trips", JSON.stringify(updatedTrips));
   };
 
-  return <TripContext.Provider value={{}}>{children}</TripContext.Provider>;
+  const value = {trips, addTrip, updateTrip, deleteTrip};
+
+  return <TripContext.Provider value={value}>{children}</TripContext.Provider>;
 };
 
-// src/context/TripContext.js
+
 
 export { TripContext, TripProvider };
