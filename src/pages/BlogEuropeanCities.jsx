@@ -75,6 +75,10 @@ const BlogEuropeanCities = () => {
               Famous for its port wine, Porto charms visitors with its colorful
               riverside district and historic bookstores.
             </p>
+            <h2 className="text-2xl font-semibold mt-10 mb-4 text-blue-400">
+              7. Ghent, Belgium
+            </h2>
+            <p>Ghent offers medieval beauty with fewer crowds than Bruges.</p>
           </article>
         </div>
       </main>
