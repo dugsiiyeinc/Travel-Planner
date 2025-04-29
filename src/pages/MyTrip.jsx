@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 import TripCard from "../components/TripCard";
 
 const MyTrips = () => {
-  const { trips, loading, error, fetchTrips } = useTrip();
+  const { trips,  error, fetchTrips } = useTrip();
   const navigate = useNavigate();
 
   useEffect(() => {
