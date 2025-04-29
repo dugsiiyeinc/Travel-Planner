@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../services/supabses";
-import ProfilePopup from "../pages/ProfilePopup";
 
 const AuthContext = createContext();
 
@@ -11,7 +10,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const getSession = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
         if (error) throw error;
         setUser(session?.user ?? null);
       } catch (error) {
@@ -23,11 +25,11 @@ export const AuthProvider = ({ children }) => {
 
     getSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user ?? null);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      setUser(session?.user ?? null);
+    });
 
     return () => {
       subscription?.unsubscribe();
@@ -44,12 +46,11 @@ export const AuthProvider = ({ children }) => {
           data: {
             first_name: firstName,
             last_name: lastName,
-          }
-        }
+          },
+        },
       });
 
       if (error) throw error;
-      
       return data.user;
     } catch (error) {
       console.error("Signup error:", error);
@@ -64,12 +65,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
-        password
+        password,
       });
 
       if (error) throw error;
-      if (!data?.user) throw new Error('No user returned from sign in');
-      
+      if (!data?.user) throw new Error("No user returned from sign in");
+
       return data.user;
     } catch (error) {
       console.error("Signin error:", error);
@@ -93,49 +94,62 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfile = async ({ firstName, lastName, email, password }) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      
-      const updates = {
-        email,
-        data: {
+      const updates = {};
+  
+      // Only update email if it's different
+      if (email && email !== user.email) {
+        updates.email = email;
+      }
+  
+      // Only update password if it's provided
+      if (password) {
+        updates.password = password;
+      }
+  
+      // Only update user_metadata if it's different
+      const currentFirstName = user.user_metadata?.first_name || "";
+      const currentLastName = user.user_metadata?.last_name || "";
+  
+      if (firstName !== currentFirstName || lastName !== currentLastName) {
+        updates.data = {
           first_name: firstName,
           last_name: lastName,
-        },
-      };
-
-      const { error: updateError } = await supabase.auth.updateUser(updates);
-      if (updateError) throw updateError;
-
-      if (password) {
-        const { error: passwordError } = await supabase.auth.updateUser({
-          password,
-        });
-        if (passwordError) throw passwordError;
+        };
       }
-
+  
+      // If nothing to update, just exit
+      if (Object.keys(updates).length === 0) {
+        return { error: null };
+      }
+  
+      const { data, error } = await supabase.auth.updateUser(updates);
+      if (error) throw error;
+  
       return { error: null };
     } catch (error) {
+      console.error("Update profile error:", error);
       return { error: error.message };
     } finally {
       setLoading(false);
     }
   };
-
+  
 
   const formatAuthError = (error) => {
-    const errorMessage = error.message || 'Authentication failed';
-    
-    if (error.message.includes('Invalid login credentials')) {
-      return new Error('The email or password you entered is incorrect');
+    const errorMessage = error.message || "Authentication failed";
+
+    if (errorMessage.includes("Invalid login credentials")) {
+      return new Error("The email or password you entered is incorrect");
     }
-    if (error.message.includes('Email not confirmed')) {
-      return new Error('Please verify your email before signing in');
+    if (errorMessage.includes("Email not confirmed")) {
+      return new Error("Please verify your email before signing in");
     }
-    if (error.message.includes('User already registered')) {
-      return new Error('This email is already registered');
+    if (errorMessage.includes("User already registered")) {
+      return new Error("This email is already registered");
     }
-    
+
     return new Error(errorMessage);
   };
 
@@ -145,15 +159,10 @@ export const AuthProvider = ({ children }) => {
     signUp,
     signIn,
     signOut,
-    ProfilePopup,
-    updateProfile
+    updateProfile,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
