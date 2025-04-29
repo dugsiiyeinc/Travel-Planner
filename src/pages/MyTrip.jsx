@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { TripContext } from "../context/TripContext";
+import { useTrip } from "../context/TripContext";
 import { Plus } from "lucide-react";
 import TripCard from "../components/TripCard";
 
 const MyTrips = () => {
-  const { trips } = useContext(TripContext);
+  const { trips, loading, error, fetchTrips } = useTrip();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchTrips();
+  }, [fetchTrips]);
 
   const handleCreateNew = () => navigate("/createtrip");
   const handleTripClick = (tripId) => navigate(`/mytrip/${tripId}`);
@@ -32,7 +36,37 @@ const MyTrips = () => {
         </section>
 
         <section className="max-w-6xl mx-auto px-6 py-12">
-          {trips.length > 0 ? (
+          {error ? (
+            <div className="text-center py-12">
+              <div className="max-w-md mx-auto">
+                <svg 
+                  className="w-24 h-24 mx-auto text-red-500 mb-4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth="1.5" 
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  ></path>
+                </svg>
+                <h3 className="text-xl font-medium text-red-400 mb-2">
+                  Error loading trips
+                </h3>
+                <p className="text-gray-500 mb-6">
+                  {error.message || "Failed to load your trips. Please try again."}
+                </p>
+                <button
+                  onClick={fetchTrips}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          ) : trips.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trips.map(trip => (
                 <TripCard 
@@ -45,11 +79,25 @@ const MyTrips = () => {
           ) : (
             <div className="text-center py-12">
               <div className="max-w-md mx-auto">
-                <svg className="w-24 h-24 mx-auto text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                <svg 
+                  className="w-24 h-24 mx-auto text-gray-500 mb-4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth="1.5" 
+                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
                 </svg>
-                <h3 className="text-xl font-medium text-gray-400 mb-2">No trips planned yet</h3>
-                <p className="text-gray-500 mb-6">Start by creating your first adventure!</p>
+                <h3 className="text-xl font-medium text-gray-400 mb-2">
+                  No trips planned yet
+                </h3>
+                <p className="text-gray-500 mb-6">
+                  Start by creating your first adventure!
+                </p>
                 <button
                   onClick={handleCreateNew}
                   className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
