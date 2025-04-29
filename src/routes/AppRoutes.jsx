@@ -10,6 +10,7 @@ import TripDetails from "../pages/TripDetails";
 import BlogEuropeanCities from "../pages/BlogEuropeanCities";
 import BlogPackingGuide from "../pages/BlogPackingGuide";
 import BlogBudgetTravel from "../pages/BlogBudgetTravel";
+import ProtectedRoute from "./ProtectedRoutes";
 
 const AppRoutes = createBrowserRouter([
   {
@@ -20,23 +21,6 @@ const AppRoutes = createBrowserRouter([
         index: true,
         element: <Home />,
         title: "Home",
-        showInNav: true,
-      },
-      {
-        path: "mytrip",
-        element: <MyTrips />,
-        title: "My Trips",
-        showInNav: true,
-      },
-      {
-        path: "mytrip/:tripId",
-        element: <TripDetails />,
-        title: "Trip Details",
-      },
-      {
-        path: "createtrip",
-        element: <CreateTrip />,
-        title: "Create Trip",
         showInNav: true,
       },
       {
@@ -63,6 +47,28 @@ const AppRoutes = createBrowserRouter([
         path: "blog/budget-travel",
         element: <BlogBudgetTravel />,
         title: "Budget Travel",
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "mytrip",
+            element: <MyTrips />,
+            title: "My Trips",
+            showInNav: true,
+          },
+          {
+            path: "mytrip/:tripId",
+            element: <TripDetails />,
+            title: "Trip Details",
+          },
+          {
+            path: "createtrip",
+            element: <CreateTrip />,
+            title: "Create Trip",
+            showInNav: true,
+          },
+        ],
       },
       {
         path: "*",

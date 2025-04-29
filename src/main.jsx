@@ -5,11 +5,14 @@ import App from "./App.jsx";
 import { RouterProvider } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes.jsx";
 import { TripProvider } from "./context/TripContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <TripProvider>
-      <RouterProvider router={AppRoutes} />
-    </TripProvider>
+    <AuthProvider>
+      <TripProvider>
+        <RouterProvider router={AppRoutes} />
+      </TripProvider>
+    </AuthProvider>
   </StrictMode>
 );

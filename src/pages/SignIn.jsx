@@ -1,8 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import { LogIn } from "lucide-react";
+import { LogIn, Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { supabase } from "../services/supabses";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      toast.error("Please enter your email");
+      return;
+    }
+    if (!password) {
+      toast.error("Please enter your password");
+      return;
+    }
+  
+    setLoading(true);
+  
+    try {
+      await signIn(email, password);
+      toast.success("Signed in successfully!");
+      navigate("/mytrip");
+    } catch (error) {
+      console.error("SignIn Error:", error);
+      
+      // Improved error handling
+      if (error.message.includes('Database error querying schema')) {
+        toast.error("Please try again or contact support if the problem persists");
+      } else if (error.message.includes('Invalid login credentials')) {
+        toast.error("Invalid email or password");
+      } else if (error.message.includes('admin privileges')) {
+        toast.error("You don't have admin access");
+      } else {
+        toast.error("Sign in failed. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email.trim()) {
+      toast.error("Please enter your email first");
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase());
+      
+      if (error) throw error;
+      
+      toast.success(`Password reset link sent to ${email}`);
+    } catch (error) {
+      toast.error(error.message || "Failed to send reset email");
+    }
+  };
+
   return (
     <div className="bg-[#0E0F2C] text-white min-h-screen">
       <Navbar />
@@ -21,7 +86,7 @@ const SignIn = () => {
         </div>
         
         <div className="bg-[#1B1C3D] rounded-2xl shadow-xl p-6 md:p-8">
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email Address
@@ -29,8 +94,12 @@ const SignIn = () => {
               <input
                 type="email"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 className="w-full bg-[#252747] border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
                 placeholder="you@example.com"
+                autoComplete="email"
               />
             </div>
             
@@ -38,38 +107,53 @@ const SignIn = () => {
               <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
                 Password
               </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full bg-[#252747] border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full bg-[#252747] border border-gray-700 rounded-lg px-4 py-3 pr-12 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
             </div>
             
             <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600 rounded bg-gray-700"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
-                  Remember me
-                </label>
-              </div>
-              
-              <a href="/forgot-password" className="text-sm text-blue-400 hover:underline">
+              <button 
+                type="button" 
+                onClick={handleForgotPassword}
+                className="text-sm text-blue-400 hover:underline"
+              >
                 Forgot password?
-              </a>
+              </button>
             </div>
             
             <div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors"
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors disabled:opacity-70 flex justify-center items-center"
               >
-                Sign In
+                {loading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing In...
+                  </>
+                ) : "Sign In"}
               </button>
             </div>
           </form>
@@ -77,9 +161,12 @@ const SignIn = () => {
           <div className="mt-6 text-center">
             <p className="text-gray-400 text-sm">
               Don't have an account?{" "}
-              <a href="/signup" className="text-blue-400 hover:underline font-medium">
+              <button 
+                onClick={() => navigate("/signup")} 
+                className="text-blue-400 hover:underline font-medium"
+              >
                 Sign up
-              </a>
+              </button>
             </p>
           </div>
         </div>

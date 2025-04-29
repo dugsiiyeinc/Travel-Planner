@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../context/TripContext";
-import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sampleTrips from '../data/trips.json';
@@ -17,7 +16,7 @@ const travelImages = [
   "https://images.unsplash.com/photo-1531572753322-ad063cecc140",
   "https://images.unsplash.com/photo-1492571350019-22de08371fd3",
   "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
-  "https://images.unsplash.com/photo-1559128010-7c1ad6e1b634"
+  "https://images.unsplash.com/photo-1554366347-897a5113f6ab?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 ];
 
 const CreateTrip = () => {
@@ -59,7 +58,7 @@ const CreateTrip = () => {
     setShowTemplates(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!tripData.startDate || !tripData.endDate) {
@@ -69,6 +68,12 @@ const CreateTrip = () => {
 
     const startDate = new Date(tripData.startDate);
     const endDate = new Date(tripData.endDate);
+    
+    if (startDate > endDate) {
+      toast.error("End date must be after start date");
+      return;
+    }
+
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
     
@@ -86,15 +91,19 @@ const CreateTrip = () => {
       });
     }
 
-    const newTrip = {
-      ...tripData,
-      id: uuidv4(),
-      itinerary: itinerary
-    };
-    
-    addTrip(newTrip);
-    toast.success("Trip created successfully!");
-    navigate("/mytrip");
+    try {
+      const newTrip = {
+        ...tripData,
+        itinerary: itinerary
+      };
+      
+      await addTrip(newTrip);
+      toast.success("Trip created successfully!");
+      navigate("/mytrip");
+    } catch (error) {
+      toast.error("Failed to create trip");
+      console.error(error);
+    }
   };
 
   return (
