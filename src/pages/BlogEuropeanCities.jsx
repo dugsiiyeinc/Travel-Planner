@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { ArrowLeft } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const BlogEuropeanCities = () => {
+  const { theme } = useTheme();
+
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${theme === 'dark' ? 'bg-[#0E0F2C]' : 'bg-gray-50'} ${theme === 'dark' ? 'text-white' : 'text-gray-900'} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
         <div className="max-w-4xl mx-auto px-6 py-12">
@@ -26,7 +29,7 @@ const BlogEuropeanCities = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Top 10 European Cities to Visit in 2025
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className={`text-xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-8`}>
               Europe continues to be a top destination for travelers worldwide.
               In 2025, these cities stand out for their unique blend of history,
               culture, and modern attractions.
@@ -100,7 +103,7 @@ const BlogEuropeanCities = () => {
               Gateway to Norway's fjords, Bergen's colorful Bryggen wharf is
               UNESCO-listed.
             </p>
-            <div className="mt-12 p-6 bg-[#1B1C3D] rounded-xl">
+            <div className={`mt-12 p-6 ${theme === 'dark' ? 'bg-[#1B1C3D]' : 'bg-blue-50'} rounded-xl`}>
               <h3 className="text-xl font-semibold mb-4">
                 Planning Your European Adventure
               </h3>
