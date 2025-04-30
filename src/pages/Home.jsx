@@ -1,8 +1,12 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { NavLink } from "react-router-dom";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const Home = () => {
+
+  const themeStyles = useThemeStyles();
+
   const features = [
     {
       icon: "🌍",
@@ -84,19 +88,19 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
 
       <main className="pt-20">
         {/* Hero section */}
-        <section className="flex flex-col items-center text-center px-4 py-20 bg-gradient-to-b from-[#0E0F2C] to-[#151635]">
+        <section className={`flex flex-col items-center text-center px-4 py-20 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl leading-tight">
             Discover. Plan. Travel.{" "}
             <span className="text-blue-400 bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
               Effortlessly.
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8">
+          <p className={`text-lg md:text-xl ${themeStyles.secondaryText} max-w-2xl mb-8`}>
             TravelPlanner helps you create unforgettable journeys with smart
             tools and inspiring guides.
           </p>
@@ -109,7 +113,7 @@ const Home = () => {
             </NavLink>
             <NavLink
               to="/mytrip"
-              className="bg-transparent border border-gray-600 hover:bg-gray-700/50 text-white font-semibold px-6 py-3 rounded-xl shadow-md transition-colors"
+              className={`bg-transparent border ${themeStyles.border} hover:bg-gray-700/50 ${themeStyles.text} font-semibold px-6 py-3 rounded-xl shadow-md transition-colors`}
             >
               View My Trips
             </NavLink>
@@ -125,7 +129,7 @@ const Home = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                className={`${themeStyles.cardBg} rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -139,7 +143,7 @@ const Home = () => {
                   <h3 className="text-xl font-semibold mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-400">{feature.description}</p>
+                  <p className={themeStyles.secondaryText}>{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -147,7 +151,7 @@ const Home = () => {
         </section>
 
         {/* Testimonials */}
-        <section className="bg-[#151635] py-20 px-6">
+        <section className={`${themeStyles.cardBg} py-20 px-6`}>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
               What Our <span className="text-blue-400">Travelers</span> Say
@@ -156,7 +160,7 @@ const Home = () => {
               {testimonials.map((t, i) => (
                 <div
                   key={i}
-                  className="bg-[#1F203F] p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+                  className={`${themeStyles.cardBg} p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow`}
                 >
                   <div className="flex items-center gap-4 mb-4">
                     <img
@@ -166,10 +170,10 @@ const Home = () => {
                     />
                     <div>
                       <h4 className="font-semibold text-white">{t.name}</h4>
-                      <p className="text-sm text-gray-400">{t.role}</p>
+                      <p className={`text-sm ${themeStyles.secondaryText}`}>{t.role}</p>
                     </div>
                   </div>
-                  <p className="text-gray-300 italic">"{t.quote}"</p>
+                  <p className={`${themeStyles.secondaryText} italic`}>"{t.quote}"</p>
                 </div>
               ))}
             </div>
@@ -185,7 +189,7 @@ const Home = () => {
             {blogs.map((blog, index) => (
               <div
                 key={index}
-                className="bg-[#1B1C3D] p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                className={`${themeStyles.cardBg} p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow`}
               >
                 <img
                   src={blog.image}
@@ -193,7 +197,7 @@ const Home = () => {
                   className="w-full h-56 object-cover mb-6 rounded-xl"
                 />
                 <h3 className="text-xl font-semibold mb-4">{blog.title}</h3>
-                <p className="text-gray-300 mb-4">{blog.snippet}</p>
+                <p className={useThemeStyles.secondaryText} mb-4>{blog.snippet}</p>
                 <NavLink
                   to={blog.link}
                   className="text-blue-400 hover:text-blue-500 font-semibold"
