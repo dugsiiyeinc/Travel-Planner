@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { supabase } from "../services/supabses";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const themeStyles = useThemeStyles();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +38,6 @@ const SignIn = () => {
     } catch (error) {
       console.error("SignIn Error:", error);
       
-      // Improved error handling
       if (error.message.includes('Database error querying schema')) {
         toast.error("Please try again or contact support if the problem persists");
       } else if (error.message.includes('Invalid login credentials')) {
@@ -69,7 +70,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
       
       <main className="pt-20 pb-12 px-4 max-w-md mx-auto">
@@ -80,15 +81,15 @@ const SignIn = () => {
             </div>
           </div>
           <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-          <p className="text-gray-400">
+          <p className={themeStyles.secondaryText}>
             Sign in to access your trips and preferences
           </p>
         </div>
         
-        <div className="bg-[#1B1C3D] rounded-2xl shadow-xl p-6 md:p-8">
+        <div className={`${themeStyles.cardBg} rounded-2xl shadow-xl p-6 md:p-8`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className={`block text-sm font-medium ${themeStyles.secondaryText} mb-2`}>
                 Email Address
               </label>
               <input
@@ -97,14 +98,14 @@ const SignIn = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full bg-[#252747] border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                className={`w-full ${themeStyles.cardBg} ${themeStyles.border} rounded-lg px-4 py-3 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                 placeholder="you@example.com"
                 autoComplete="email"
               />
             </div>
             
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="password" className={`block text-sm font-medium ${themeStyles.secondaryText} mb-2`}>
                 Password
               </label>
               <div className="relative">
@@ -114,14 +115,14 @@ const SignIn = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full bg-[#252747] border border-gray-700 rounded-lg px-4 py-3 pr-12 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                  className={`w-full ${themeStyles.cardBg} ${themeStyles.border} rounded-lg px-4 py-3 pr-12 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                   placeholder="••••••••"
                   autoComplete="current-password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200"
+                  className={`absolute right-4 top-1/2 transform -translate-y-1/2 ${themeStyles.secondaryText} hover:${themeStyles.text}`}
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -143,7 +144,7 @@ const SignIn = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors disabled:opacity-70 flex justify-center items-center"
+                className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors disabled:opacity-70 flex justify-center items-center`}
               >
                 {loading ? (
                   <>
@@ -159,7 +160,7 @@ const SignIn = () => {
           </form>
           
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className={`${themeStyles.secondaryText} text-sm`}>
               Don't have an account?{" "}
               <button 
                 onClick={() => navigate("/signup")} 
