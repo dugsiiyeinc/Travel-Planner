@@ -6,13 +6,16 @@ import { RouterProvider } from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes.jsx";
 import { TripProvider } from "./context/TripContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <TripProvider>
-        <RouterProvider router={AppRoutes} />
-      </TripProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <TripProvider>
+          <RouterProvider router={AppRoutes} />
+        </TripProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </StrictMode>
 );
