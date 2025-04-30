@@ -1,12 +1,15 @@
 import React from "react";
 import { format } from "date-fns";
 import { ArrowRight, MapPin, Calendar, DollarSign } from "lucide-react";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const TripCard = ({ trip, onClick }) => {
+  const themeStyles = useThemeStyles();
+
   return (
     <div 
       onClick={onClick}
-      className="bg-[#1B1C3D] rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all cursor-pointer hover:translate-y-[-4px] group"
+      className={`${themeStyles.cardBg} rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all cursor-pointer hover:translate-y-[-4px] group border ${themeStyles.border}`}
     >
       <div className="relative h-48">
         <img
@@ -28,9 +31,11 @@ const TripCard = ({ trip, onClick }) => {
         </div>
       </div>
       <div className="p-5">
-        <h3 className="text-xl font-semibold mb-2 line-clamp-1">{trip.name}</h3>
+        <h3 className={`text-xl font-semibold mb-2 line-clamp-1 ${themeStyles.text}`}>
+          {trip.name}
+        </h3>
         
-        <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+        <div className={`flex items-center gap-2 text-sm mb-2 ${themeStyles.secondaryText}`}>
           <MapPin className="w-4 h-4" />
           <span className="line-clamp-1">{trip.destination}</span>
         </div>
@@ -42,9 +47,9 @@ const TripCard = ({ trip, onClick }) => {
           </span>
         </div>
         
-        <div className="flex justify-between items-center pt-3 border-t border-gray-700/50">
-          <div className="flex items-center gap-2 font-medium">
-            <DollarSign className="w-4 h-4 text-gray-400" />
+        <div className={`flex justify-between items-center pt-3 border-t ${themeStyles.border}/50`}>
+          <div className={`flex items-center gap-2 font-medium ${themeStyles.secondaryText}`}>
+            <DollarSign className="w-4 h-4" />
             <span>${trip.budget.toLocaleString()}</span>
           </div>
           <button 
