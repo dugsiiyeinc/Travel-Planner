@@ -2,10 +2,13 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { NavLink } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const BlogPackingGuide = () => {
+  const { theme } = useTheme();
+
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${theme === 'dark' ? 'bg-[#0E0F2C]' : 'bg-gray-50'} ${theme === 'dark' ? 'text-white' : 'text-gray-900'} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
         <div className="max-w-4xl mx-auto px-6 py-12">
@@ -25,7 +28,7 @@ const BlogPackingGuide = () => {
               />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Packing Like a Pro: Tips You Need</h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className={`text-xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mb-8`}>
               Mastering the art of packing can transform your travel experience. These professional 
               tips will help you pack efficiently, avoid baggage fees, and ensure you have everything 
               you need.
@@ -87,7 +90,7 @@ const BlogPackingGuide = () => {
                 <li>Collapsible water bottle</li>
               </ul>
             </p>
-            <div className="mt-12 p-6 bg-[#1B1C3D] rounded-xl">
+            <div className={`mt-12 p-6 ${theme === 'dark' ? 'bg-[#1B1C3D]' : 'bg-blue-50'} rounded-xl`}>
               <h3 className="text-xl font-semibold mb-4">Packing Checklist</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
