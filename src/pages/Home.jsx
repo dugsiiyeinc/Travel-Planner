@@ -93,7 +93,7 @@ const Home = () => {
 
       <main className="pt-20">
         {/* Hero section */}
-        <section className={`flex flex-col items-center text-center px-4 py-20 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}>
+        <section className={`flex flex-col items-center text-center px-4 py-20 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo} `}>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl leading-tight">
             Discover. Plan. Travel.{" "}
             <span className="text-blue-400 bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">

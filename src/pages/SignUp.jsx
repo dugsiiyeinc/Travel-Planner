@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { supabase } from "../services/supabses";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const SignUp = () => {
@@ -40,7 +41,17 @@ const SignUp = () => {
       toast.success("Account created successfully! Please check your email for confirmation.");
       navigate("/signin");
     } catch (error) {
-      toast.error(error.message || "Error creating account");
+      console.error("SignUp Error:", error);
+      
+      if (error.message.includes('Database error querying schema')) {
+        toast.error("Please try again or contact support if the problem persists");
+      } else if (error.message.includes('Email rate limit exceeded')) {
+        toast.error("Too many attempts. Please try again later.");
+      } else if (error.message.includes('User already registered')) {
+        toast.error("Email already in use. Please sign in instead.");
+      } else {
+        toast.error(error.message || "Error creating account");
+      }
     } finally {
       setLoading(false);
     }
@@ -82,6 +93,7 @@ const SignUp = () => {
                     required
                     className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                     placeholder="John"
+                    autoComplete="given-name"
                   />
                 </div>
               </div>
@@ -102,6 +114,7 @@ const SignUp = () => {
                     required
                     className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                     placeholder="Doe"
+                    autoComplete="family-name"
                   />
                 </div>
               </div>
@@ -123,6 +136,7 @@ const SignUp = () => {
                   required
                   className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                   placeholder="you@example.com"
+                  autoComplete="email"
                 />
               </div>
             </div>
@@ -144,11 +158,13 @@ const SignUp = () => {
                   minLength={8}
                   className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 pr-12 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                   placeholder="••••••••"
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className={`absolute right-4 top-1/2 transform -translate-y-1/2 ${themeStyles.secondaryText} hover:${themeStyles.text}`}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -175,11 +191,13 @@ const SignUp = () => {
                   minLength={8}
                   className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 pr-12 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                   placeholder="••••••••"
+                  autoComplete="new-password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className={`absolute right-4 top-1/2 transform -translate-y-1/2 ${themeStyles.secondaryText} hover:${themeStyles.text}`}
+                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                 >
                   {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>

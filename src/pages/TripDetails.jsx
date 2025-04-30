@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const TripDetails = () => {
   const { tripId } = useParams();
@@ -20,6 +21,7 @@ const TripDetails = () => {
   const [expandedDays, setExpandedDays] = useState({});
   const [showShareOptions, setShowShareOptions] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const themeStyles = useThemeStyles();
 
   React.useEffect(() => {
     const trip = trips.find(t => t.id === tripId);
@@ -94,7 +96,7 @@ const TripDetails = () => {
       {
         autoClose: false,
         closeButton: false,
-        className: 'bg-[#1B1C3D] border-l-4 border-red-500 shadow-xl',
+        className: `${themeStyles.cardBg} border-l-4 border-red-500 shadow-xl`,
       }
     );
   };
@@ -144,7 +146,7 @@ const TripDetails = () => {
       {
         autoClose: false,
         closeButton: false,
-        className: 'bg-[#1B1C3D] border-l-4 border-green-500 shadow-xl',
+        className: `${themeStyles.cardBg} border-l-4 border-green-500 shadow-xl`,
       }
     );
   };
@@ -225,13 +227,13 @@ const TripDetails = () => {
   };
 
   if (!tripData) return (
-    <div className="flex items-center justify-center min-h-screen bg-[#0E0F2C]">
+    <div className={`flex items-center justify-center min-h-screen ${themeStyles.bg}`}>
       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
     </div>
   );
 
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
         {/* Hero Section */}
@@ -241,7 +243,7 @@ const TripDetails = () => {
             alt={tripData.name}
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0E0F2C] via-transparent to-transparent" />
+          <div className={`absolute inset-0 bg-gradient-to-t ${themeStyles.gradientFrom} via-transparent to-transparent`} />
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col space-y-3">
@@ -251,11 +253,11 @@ const TripDetails = () => {
                     name="name"
                     value={tripData.name}
                     onChange={handleChange}
-                    className="text-3xl md:text-4xl font-bold bg-transparent border-b-2 border-blue-400 focus:outline-none text-white placeholder-white/70"
+                    className={`text-3xl md:text-4xl font-bold bg-transparent border-b-2 border-blue-400 focus:outline-none ${themeStyles.text} placeholder-white/70`}
                     placeholder="Trip name"
                   />
                 ) : (
-                  <h1 className="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
+                  <h1 className={`text-3xl md:text-4xl font-bold ${themeStyles.text} drop-shadow-lg`}>
                     {tripData.name}
                   </h1>
                 )}
@@ -267,7 +269,7 @@ const TripDetails = () => {
                       name="destination"
                       value={tripData.destination}
                       onChange={handleChange}
-                      className="text-lg md:text-xl bg-transparent border-b border-blue-400 focus:outline-none text-blue-300 placeholder-blue-300/70"
+                      className={`text-lg md:text-xl bg-transparent border-b border-blue-400 focus:outline-none text-blue-300 placeholder-blue-300/70`}
                       placeholder="Destination"
                     />
                   ) : (
@@ -287,10 +289,10 @@ const TripDetails = () => {
             {/* Left Column */}
             <div className="lg:col-span-2 space-y-6">
               {/* Trip Overview Card */}
-              <div className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden transition-all hover:shadow-xl">
+              <div className={`${themeStyles.cardBg} rounded-2xl shadow-lg overflow-hidden transition-all hover:shadow-xl border ${themeStyles.border}`}>
                 <div className="p-6 md:p-8">
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-white">Trip Overview</h2>
+                    <h2 className={`text-2xl font-bold ${themeStyles.text}`}>Trip Overview</h2>
                     {isEditing && (
                       <button
                         onClick={handleSave}
@@ -312,17 +314,17 @@ const TripDetails = () => {
                       value={tripData.description}
                       onChange={handleChange}
                       rows="4"
-                      className="w-full p-4 bg-[#252747] border border-gray-700 rounded-lg mb-6 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-300 placeholder-gray-500 transition-all"
+                      className={`w-full p-4 ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg mb-6 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${themeStyles.text} placeholder-gray-500 transition-all`}
                       placeholder="Describe your trip..."
                     />
                   ) : (
-                    <p className="text-gray-300 mb-6 leading-relaxed">{tripData.description}</p>
+                    <p className={`${themeStyles.secondaryText} mb-6 leading-relaxed`}>{tripData.description}</p>
                   )}
                   
-                  <h3 className="text-xl font-bold text-white mb-6">Itinerary</h3>
+                  <h3 className={`text-xl font-bold ${themeStyles.text} mb-6`}>Itinerary</h3>
                   <div className="space-y-4">
                     {tripData.itinerary.map((day, dayIndex) => (
-                      <div key={day.day} className="bg-[#252747] p-5 rounded-xl border border-gray-700 hover:border-blue-400 transition-all">
+                      <div key={day.day} className={`${themeStyles.cardBg} p-5 rounded-xl border ${themeStyles.border} hover:border-blue-400 transition-all`}>
                         <div 
                           className="flex items-center justify-between mb-4 cursor-pointer group"
                           onClick={() => toggleDayExpand(day.day)}
@@ -332,35 +334,35 @@ const TripDetails = () => {
                               {day.day}
                             </div>
                             <div>
-                              <h4 className="text-lg font-semibold text-white">
+                              <h4 className={`text-lg font-semibold ${themeStyles.text}`}>
                                 {format(parseISO(day.date), 'EEEE, MMMM d, yyyy')}
                               </h4>
-                              <p className="text-sm text-gray-400">
+                              <p className={`text-sm ${themeStyles.secondaryText}`}>
                                 {day.activities.length} {day.activities.length === 1 ? 'activity' : 'activities'}
                               </p>
                             </div>
                           </div>
                           {expandedDays[day.day] ? (
-                            <ChevronUp className="text-gray-400 group-hover:text-gray-300 transition-colors" size={20} />
+                            <ChevronUp className={`${themeStyles.secondaryText} group-hover:text-gray-300 transition-colors`} size={20} />
                           ) : (
-                            <ChevronDown className="text-gray-400 group-hover:text-gray-300 transition-colors" size={20} />
+                            <ChevronDown className={`${themeStyles.secondaryText} group-hover:text-gray-300 transition-colors`} size={20} />
                           )}
                         </div>
                         {expandedDays[day.day] && (
                           <div className="ml-14 space-y-3">
                             {day.activities.map((activity, activityIndex) => (
-                              <div key={activityIndex} className="flex items-start p-3 bg-[#1B1C3D] rounded-lg border border-gray-700 hover:bg-[#252747] transition-all">
+                              <div key={activityIndex} className={`flex items-start p-3 ${themeStyles.cardBg} rounded-lg border ${themeStyles.border} hover:bg-opacity-50 transition-all`}>
                                 {isEditing ? (
                                   <>
                                     <input
                                       type="text"
                                       value={activity}
                                       onChange={(e) => updateActivity(dayIndex, activityIndex, e.target.value)}
-                                      className="flex-grow p-2 bg-[#252747] border border-gray-600 rounded text-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                      className={`flex-grow p-2 ${themeStyles.cardBg} border ${themeStyles.border} rounded ${themeStyles.text} focus:ring-blue-500 focus:border-blue-500 transition-all`}
                                     />
                                     <button
                                       onClick={() => removeActivity(dayIndex, activityIndex)}
-                                      className="ml-3 p-1.5 text-red-400 hover:text-red-300 hover:bg-[#252747] rounded-full transition-colors"
+                                      className="ml-3 p-1.5 text-red-400 hover:text-red-300 hover:bg-opacity-50 rounded-full transition-colors"
                                     >
                                       <Trash2 size={18} />
                                     </button>
@@ -370,7 +372,7 @@ const TripDetails = () => {
                                     <div className="flex-shrink-0 mt-1 mr-3">
                                       <Circle className="w-2 h-2 text-blue-400 fill-current" />
                                     </div>
-                                    <p className="text-gray-300 flex-grow">{activity}</p>
+                                    <p className={`${themeStyles.secondaryText} flex-grow`}>{activity}</p>
                                   </>
                                 )}
                               </div>
@@ -378,7 +380,7 @@ const TripDetails = () => {
                             {isEditing && (
                               <button
                                 onClick={() => addActivity(dayIndex)}
-                                className="flex items-center text-sm text-blue-400 hover:text-blue-300 ml-3 mt-2 transition-colors"
+                                className={`flex items-center text-sm text-blue-400 hover:text-blue-300 ml-3 mt-2 transition-colors`}
                               >
                                 <Plus size={16} className="mr-2" />
                                 Add Activity
@@ -396,70 +398,70 @@ const TripDetails = () => {
             {/* Right Column */}
             <div className="space-y-6">
               {/* Trip Details Card */}
-              <div className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden transition-all hover:shadow-xl">
+              <div className={`${themeStyles.cardBg} rounded-2xl shadow-lg overflow-hidden transition-all hover:shadow-xl border ${themeStyles.border}`}>
                 <div className="p-6 md:p-8">
-                  <h3 className="text-xl font-bold text-white mb-6">Trip Details</h3>
+                  <h3 className={`text-xl font-bold ${themeStyles.text} mb-6`}>Trip Details</h3>
                   
                   <div className="space-y-6">
                     <div>
-                      <div className="flex items-center text-sm text-gray-400 mb-2">
+                      <div className={`flex items-center text-sm ${themeStyles.secondaryText} mb-2`}>
                         <Calendar className="mr-2 text-gray-500" size={16} />
                         <span>Dates</span>
                       </div>
                       {isEditing ? (
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs text-gray-500 mb-1">Start Date</label>
+                            <label className={`block text-xs ${themeStyles.secondaryText} mb-1`}>Start Date</label>
                             <input
                               type="date"
                               name="startDate"
                               value={tripData.startDate}
                               onChange={handleChange}
-                              className="w-full p-2.5 bg-[#252747] border border-gray-700 rounded-lg text-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                              className={`w-full p-2.5 ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg ${themeStyles.text} focus:ring-blue-500 focus:border-blue-500 transition-all`}
                             />
                           </div>
                           <div>
-                            <label className="block text-xs text-gray-500 mb-1">End Date</label>
+                            <label className={`block text-xs ${themeStyles.secondaryText} mb-1`}>End Date</label>
                             <input
                               type="date"
                               name="endDate"
                               value={tripData.endDate}
                               onChange={handleChange}
                               min={tripData.startDate}
-                              className="w-full p-2.5 bg-[#252747] border border-gray-700 rounded-lg text-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                              className={`w-full p-2.5 ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg ${themeStyles.text} focus:ring-blue-500 focus:border-blue-500 transition-all`}
                             />
                           </div>
                         </div>
                       ) : (
-                        <p className="font-medium text-gray-300">
+                        <p className={`font-medium ${themeStyles.secondaryText}`}>
                           {format(parseISO(tripData.startDate), 'MMM d, yyyy')} - {format(parseISO(tripData.endDate), 'MMM d, yyyy')}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <div className="flex items-center text-sm text-gray-400 mb-2">
+                      <div className={`flex items-center text-sm ${themeStyles.secondaryText} mb-2`}>
                         <DollarSign className="mr-2 text-gray-500" size={16} />
                         <span>Budget</span>
                       </div>
                       {isEditing ? (
                         <div className="flex items-center">
-                          <span className="mr-2 text-gray-300">$</span>
+                          <span className={`mr-2 ${themeStyles.text}`}>$</span>
                           <input
                             type="number"
                             name="budget"
                             value={tripData.budget}
                             onChange={handleChange}
-                            className="w-full p-2.5 bg-[#252747] border border-gray-700 rounded-lg text-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                            className={`w-full p-2.5 ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg ${themeStyles.text} focus:ring-blue-500 focus:border-blue-500 transition-all`}
                           />
                         </div>
                       ) : (
-                        <p className="font-medium text-gray-300">${tripData.budget.toLocaleString()}</p>
+                        <p className={`font-medium ${themeStyles.secondaryText}`}>${tripData.budget.toLocaleString()}</p>
                       )}
                     </div>
 
                     <div>
-                      <div className="flex items-center text-sm text-gray-400 mb-2">
+                      <div className={`flex items-center text-sm ${themeStyles.secondaryText} mb-2`}>
                         <span className="w-4 h-4 mr-2 flex items-center justify-center">
                           <span className={`w-2 h-2 rounded-full ${
                             tripData.status === "upcoming" ? "bg-blue-500" : 
@@ -474,7 +476,7 @@ const TripDetails = () => {
                           name="status"
                           value={tripData.status}
                           onChange={handleChange}
-                          className="w-full p-2.5 bg-[#252747] border border-gray-700 rounded-lg text-gray-300 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                          className={`w-full p-2.5 ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg ${themeStyles.text} focus:ring-blue-500 focus:border-blue-500 transition-all`}
                         >
                           <option value="upcoming">Upcoming</option>
                           <option value="in-progress">In Progress</option>
@@ -496,12 +498,12 @@ const TripDetails = () => {
               </div>
 
               {/* Action Buttons Card */}
-              <div className="bg-[#1B1C3D] rounded-2xl shadow-lg overflow-hidden transition-all hover:shadow-xl">
+              <div className={`${themeStyles.cardBg} rounded-2xl shadow-lg overflow-hidden transition-all hover:shadow-xl border ${themeStyles.border}`}>
                 <div className="p-6 md:p-8 space-y-4">
                   <button
                     onClick={() => setIsEditing(!isEditing)}
                     disabled={isProcessing}
-                    className={`w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3 px-4 rounded-lg transition-all font-medium shadow-sm hover:shadow-md ${isProcessing ? 'opacity-80 cursor-not-allowed' : ''}`}
+                    className={`w-full flex items-center justify-center gap-2 ${themeStyles.buttonPrimary} text-white py-3 px-4 rounded-lg transition-all font-medium shadow-sm hover:shadow-md ${isProcessing ? 'opacity-80 cursor-not-allowed' : ''}`}
                   >
                     <Edit2 size={18} /> {isEditing ? "Cancel Editing" : "Edit Trip"}
                   </button>
@@ -515,31 +517,31 @@ const TripDetails = () => {
                       <Share2 size={18} /> Share Trip
                     </button>
                     {showShareOptions && (
-                      <div className="absolute left-0 right-0 bottom-full mb-2 bg-[#252747] rounded-lg shadow-xl overflow-hidden z-10 border border-gray-700 animate-fadeIn">
+                      <div className={`absolute left-0 right-0 bottom-full mb-2 ${themeStyles.cardBg} rounded-lg shadow-xl overflow-hidden z-10 border ${themeStyles.border} animate-fadeIn`}>
                         <button
                           onClick={() => handleShare('twitter')}
-                          className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#1B1C3D] transition-colors text-gray-300"
+                          className={`w-full flex items-center justify-between px-4 py-3 hover:bg-opacity-50 transition-colors ${themeStyles.secondaryText}`}
                         >
                           <span>Twitter</span>
                           <Twitter size={18} className="text-blue-400" />
                         </button>
                         <button
                           onClick={() => handleShare('facebook')}
-                          className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#1B1C3D] transition-colors text-gray-300"
+                          className={`w-full flex items-center justify-between px-4 py-3 hover:bg-opacity-50 transition-colors ${themeStyles.secondaryText}`}
                         >
                           <span>Facebook</span>
                           <Facebook size={18} className="text-blue-500" />
                         </button>
                         <button
                           onClick={() => handleShare('whatsapp')}
-                          className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#1B1C3D] transition-colors text-gray-300"
+                          className={`w-full flex items-center justify-between px-4 py-3 hover:bg-opacity-50 transition-colors ${themeStyles.secondaryText}`}
                         >
                           <span>WhatsApp</span>
                           <MessageSquare size={18} className="text-green-500" />
                         </button>
                         <button
                           onClick={() => handleShare('copy')}
-                          className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#1B1C3D] transition-colors text-gray-300"
+                          className={`w-full flex items-center justify-between px-4 py-3 hover:bg-opacity-50 transition-colors ${themeStyles.secondaryText}`}
                         >
                           <span>Copy Link</span>
                           <Share2 size={18} className="text-gray-400" />
@@ -572,7 +574,7 @@ const TripDetails = () => {
                   
                   <button
                     onClick={() => navigate("/mytrip")}
-                    className="w-full flex items-center justify-center gap-2 bg-transparent border border-gray-700 hover:bg-[#252747] text-gray-300 py-3 px-4 rounded-lg transition-all font-medium"
+                    className={`w-full flex items-center justify-center gap-2 bg-transparent border ${themeStyles.border} hover:bg-opacity-50 ${themeStyles.secondaryText} py-3 px-4 rounded-lg transition-all font-medium`}
                   >
                     <ArrowLeft size={18} /> Back to Trips
                   </button>
