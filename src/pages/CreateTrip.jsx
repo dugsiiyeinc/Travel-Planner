@@ -5,6 +5,7 @@ import { TripContext } from "../context/TripContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sampleTrips from '../data/trips.json';
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const travelImages = [
   "https://images.unsplash.com/photo-1501425359013-96058e410cfc",
@@ -22,6 +23,7 @@ const travelImages = [
 const CreateTrip = () => {
   const { addTrip } = useContext(TripContext);
   const navigate = useNavigate();
+  const themeStyles = useThemeStyles();
 
   const [tripData, setTripData] = useState({
     name: "",
@@ -107,27 +109,28 @@ const CreateTrip = () => {
   };
 
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
-        <section className="flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b from-[#0E0F2C] to-[#151635]">
+        <section className={`flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 max-w-3xl leading-tight">
             Plan Your Next Adventure with <span className="text-blue-400">Ease</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8">
+          <p className={`text-lg md:text-xl ${themeStyles.secondaryText} max-w-2xl mb-8`}>
             Create your dream trip with all the details and manage everything in one place.
           </p>
         </section>
 
         <section className="max-w-4xl mx-auto px-6 py-12">
           {showTemplates ? (
-            <div className="bg-[#1B1C3D] rounded-2xl shadow-xl overflow-hidden p-6">
+            <div className={`${themeStyles.cardBg} rounded-2xl shadow-xl overflow-hidden p-6`}>
               <h2 className="text-2xl font-semibold mb-6 text-center">Select a Trip Template</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {sampleTrips.map(trip => (
                   <div 
                     key={trip.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedTemplate === trip.id ? 'border-blue-500 bg-blue-500/10' : 'border-gray-700 hover:bg-gray-700/50'}`}
+                    className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedTemplate === trip.id ? 
+                      'border-blue-500 bg-blue-500/10' : `${themeStyles.border} hover:bg-opacity-50 hover:bg-gray-500`}`}
                     onClick={() => handleTemplateSelect(trip)}
                   >
                     <div className="flex items-center gap-4">
@@ -138,17 +141,17 @@ const CreateTrip = () => {
                       />
                       <div>
                         <h3 className="font-medium">{trip.name}</h3>
-                        <p className="text-sm text-gray-400">{trip.destination}</p>
+                        <p className={`text-sm ${themeStyles.secondaryText}`}>{trip.destination}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-300 mt-2 line-clamp-2">{trip.description}</p>
+                    <p className={`text-sm ${themeStyles.secondaryText} mt-2 line-clamp-2`}>{trip.description}</p>
                   </div>
                 ))}
               </div>
               <div className="mt-6 flex justify-center">
                 <button
                   onClick={() => setShowTemplates(false)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
+                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
                   disabled={!selectedTemplate}
                 >
                   Continue with Selected Template
@@ -156,7 +159,7 @@ const CreateTrip = () => {
               </div>
             </div>
           ) : (
-            <div className="bg-[#1B1C3D] rounded-2xl shadow-xl overflow-hidden">
+            <div className={`${themeStyles.cardBg} rounded-2xl shadow-xl overflow-hidden`}>
               <div className="p-6 md:p-8">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-semibold">Create Your Trip</h2>
@@ -171,32 +174,32 @@ const CreateTrip = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-gray-300 mb-2">Trip Name</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>Trip Name</label>
                       <input
                         type="text"
                         name="name"
                         value={tripData.name}
                         onChange={handleChange}
                         required
-                        className="w-full p-3 bg-[#252747] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-300 mb-2">Destination</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>Destination</label>
                       <input
                         type="text"
                         name="destination"
                         value={tripData.destination}
                         onChange={handleChange}
                         required
-                        className="w-full p-3 bg-[#252747] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-gray-300 mb-2">Start Date</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>Start Date</label>
                       <input
                         type="date"
                         name="startDate"
@@ -204,11 +207,11 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full p-3 bg-[#252747] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-300 mb-2">End Date</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>End Date</label>
                       <input
                         type="date"
                         name="endDate"
@@ -216,13 +219,13 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={tripData.startDate || new Date().toISOString().split('T')[0]}
-                        className="w-full p-3 bg-[#252747] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-gray-300 mb-2">Budget ($)</label>
+                    <label className={`block ${themeStyles.secondaryText} mb-2`}>Budget ($)</label>
                     <input
                       type="number"
                       name="budget"
@@ -230,23 +233,23 @@ const CreateTrip = () => {
                       onChange={handleChange}
                       required
                       min="0"
-                      className="w-full p-3 bg-[#252747] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-gray-300 mb-2">Description</label>
+                    <label className={`block ${themeStyles.secondaryText} mb-2`}>Description</label>
                     <textarea
                       name="description"
                       value={tripData.description}
                       onChange={handleChange}
                       rows="4"
-                      className="w-full p-3 bg-[#252747] border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-gray-300 mb-2">Trip Image</label>
+                    <label className={`block ${themeStyles.secondaryText} mb-2`}>Trip Image</label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                       {travelImages.map((image) => (
                         <div 
@@ -276,7 +279,7 @@ const CreateTrip = () => {
                   <div className="pt-4">
                     <button
                       type="submit"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors"
+                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors`}
                     >
                       Create Trip
                     </button>
