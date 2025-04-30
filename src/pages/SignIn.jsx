@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import { LogIn, Eye, EyeOff } from "lucide-react";
+import { LogIn, Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
@@ -76,7 +76,7 @@ const SignIn = () => {
       <main className="pt-20 pb-12 px-4 max-w-md mx-auto">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="bg-blue-500/10 p-3 rounded-full">
+            <div className={`${themeStyles.buttonPrimary.replace('hover:bg-blue-700', '')}/10 p-3 rounded-full`}>
               <LogIn className="h-8 w-8 text-blue-400" />
             </div>
           </div>
@@ -86,22 +86,27 @@ const SignIn = () => {
           </p>
         </div>
         
-        <div className={`${themeStyles.cardBg} rounded-2xl shadow-xl p-6 md:p-8`}>
+        <div className={`${themeStyles.cardBg} rounded-2xl shadow-xl p-6 md:p-8 border ${themeStyles.border}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="email" className={`block text-sm font-medium ${themeStyles.secondaryText} mb-2`}>
                 Email Address
               </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className={`w-full ${themeStyles.cardBg} ${themeStyles.border} rounded-lg px-4 py-3 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
-                placeholder="you@example.com"
-                autoComplete="email"
-              />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className={`h-5 w-5 ${themeStyles.secondaryText}`} />
+                </div>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 pr-4 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                />
+              </div>
             </div>
             
             <div>
@@ -109,13 +114,16 @@ const SignIn = () => {
                 Password
               </label>
               <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className={`h-5 w-5 ${themeStyles.secondaryText}`} />
+                </div>
                 <input
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className={`w-full ${themeStyles.cardBg} ${themeStyles.border} rounded-lg px-4 py-3 pr-12 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
+                  className={`w-full ${themeStyles.cardBg} border ${themeStyles.border} rounded-lg pl-10 py-3 pr-12 ${themeStyles.text} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition`}
                   placeholder="••••••••"
                   autoComplete="current-password"
                 />
