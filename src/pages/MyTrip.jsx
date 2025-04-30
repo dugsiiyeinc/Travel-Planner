@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useTrip } from "../context/TripContext";
 import { Plus } from "lucide-react";
 import TripCard from "../components/TripCard";
+import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const MyTrips = () => {
-  const { trips,  error, fetchTrips } = useTrip();
+  const { trips, error, fetchTrips } = useTrip();
   const navigate = useNavigate();
+  const themeStyles = useThemeStyles();
 
   useEffect(() => {
     fetchTrips();
@@ -17,19 +19,19 @@ const MyTrips = () => {
   const handleTripClick = (tripId) => navigate(`/mytrip/${tripId}`);
 
   return (
-    <div className="bg-[#0E0F2C] text-white min-h-screen">
+    <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
-        <section className="flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b from-[#0E0F2C] to-[#151635]">
+        <section className={`flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             My <span className="text-blue-400">Trips</span>
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mb-6">
+          <p className={`text-lg ${themeStyles.secondaryText} max-w-2xl mb-6`}>
             All your planned and completed adventures in one place
           </p>
           <button
             onClick={handleCreateNew}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors"
+            className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors`}
           >
             <Plus /> New Trip
           </button>
@@ -55,12 +57,12 @@ const MyTrips = () => {
                 <h3 className="text-xl font-medium text-red-400 mb-2">
                   Error loading trips
                 </h3>
-                <p className="text-gray-500 mb-6">
+                <p className={themeStyles.secondaryText}>
                   {error.message || "Failed to load your trips. Please try again."}
                 </p>
                 <button
                   onClick={fetchTrips}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
+                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
                 >
                   Retry
                 </button>
@@ -92,15 +94,15 @@ const MyTrips = () => {
                     d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
-                <h3 className="text-xl font-medium text-gray-400 mb-2">
+                <h3 className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}>
                   No trips planned yet
                 </h3>
-                <p className="text-gray-500 mb-6">
+                <p className={themeStyles.secondaryText}>
                   Start by creating your first adventure!
                 </p>
                 <button
                   onClick={handleCreateNew}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors"
+                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
                 >
                   Create Your First Trip
                 </button>
