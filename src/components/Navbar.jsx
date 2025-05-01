@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { 
-  Menu, 
-  X, 
-  Plus, 
-  Globe, 
-  User, 
-  LogIn, 
-  LogOut, 
-  Sun, 
+import {
+  Menu,
+  X,
+  Plus,
+  Globe,
+  User,
+  LogIn,
+  LogOut,
+  Sun,
   Moon,
   Home,
   MapPin,
   Settings,
-  UserPlus
+  UserPlus,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
@@ -50,17 +50,19 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50  ${
-        isScrolled 
-          ? `${themeStyles.navBg} shadow-md backdrop-blur-sm` 
-          : `${theme === 'dark' ? 'bg-[#0E0F2C]/95' : 'bg-white/95'} backdrop-blur-sm`
+        isScrolled
+          ? `${themeStyles.navBg} shadow-md backdrop-blur-sm`
+          : `${
+              theme === "dark" ? "bg-[#0E0F2C]/95" : "bg-white/95"
+            } backdrop-blur-sm`
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <NavLink 
-              to="/" 
+            <NavLink
+              to="/"
               className={`flex items-center text-xl font-bold ${themeStyles.text} hover:text-blue-400 transition-colors`}
             >
               <Home className="h-5 w-5 mr-2 text-blue-400" />
@@ -78,7 +80,13 @@ const Navbar = () => {
                     `flex items-center px-3 py-2 text-sm font-medium transition-all rounded-lg ${
                       isActive
                         ? "text-blue-400 bg-blue-400/10"
-                        : `${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`
+                        : `${themeStyles.secondaryText} hover:${
+                            themeStyles.text
+                          } hover:bg-opacity-50 ${
+                            theme === "dark"
+                              ? "hover:bg-gray-700"
+                              : "hover:bg-gray-200"
+                          }`
                     }`
                   }
                 >
@@ -91,36 +99,35 @@ const Navbar = () => {
                     `flex items-center px-3 py-2 text-sm font-medium transition-all rounded-lg ${
                       isActive
                         ? "text-blue-400 bg-blue-400/10"
-                        : `${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`
+                        : `${themeStyles.secondaryText} hover:${
+                            themeStyles.text
+                          } hover:bg-opacity-50 ${
+                            theme === "dark"
+                              ? "hover:bg-gray-700"
+                              : "hover:bg-gray-200"
+                          }`
                     }`
                   }
                 >
                   <Globe className="h-4 w-4 mr-2" />
                   My Trips
                 </NavLink>
-                <NavLink
-                  to="/destinations"
-                  className={({ isActive }) =>
-                    `flex items-center px-3 py-2 text-sm font-medium transition-all rounded-lg ${
-                      isActive
-                        ? "text-blue-400 bg-blue-400/10"
-                        : `${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`
-                    }`
-                  }
-                >
-                  <MapPin className="h-4 w-4 mr-2" />
-                  Destinations
-                </NavLink>
               </>
             )}
-            
+
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg ${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} transition-colors`}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              className={`p-2 rounded-lg ${themeStyles.secondaryText} hover:${
+                themeStyles.text
+              } hover:bg-opacity-50 ${
+                theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+              } transition-colors`}
+              aria-label={`Switch to ${
+                theme === "dark" ? "light" : "dark"
+              } mode`}
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun className="h-5 w-5" />
               ) : (
                 <Moon className="h-5 w-5" />
@@ -131,15 +138,29 @@ const Navbar = () => {
               {user ? (
                 <>
                   <NavLink
-                    to="/profile"
-                    className={`flex items-center px-3 py-2 text-sm font-medium ${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-lg transition-colors`}
+                    to="/mytrip"
+                    className={`flex items-center px-3 py-2 text-sm font-medium ${
+                      themeStyles.secondaryText
+                    } hover:${themeStyles.text} hover:bg-opacity-50 ${
+                      theme === "dark"
+                        ? "hover:bg-gray-700"
+                        : "hover:bg-gray-200"
+                    } rounded-lg transition-colors`}
                   >
                     <User className="h-4 w-4 mr-2" />
                     {user.user_metadata?.first_name || user.email}
                   </NavLink>
                   <button
                     onClick={handleSignOut}
-                    className={`flex items-center px-4 py-2 text-sm font-medium ${themeStyles.text} border ${themeStyles.border} rounded-lg hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} transition-colors`}
+                    className={`flex items-center px-4 py-2 text-sm font-medium ${
+                      themeStyles.text
+                    } border ${
+                      themeStyles.border
+                    } rounded-lg hover:bg-opacity-50 ${
+                      theme === "dark"
+                        ? "hover:bg-gray-700"
+                        : "hover:bg-gray-200"
+                    } transition-colors`}
                   >
                     <LogOut className="h-4 w-4 mr-2" />
                     Sign Out
@@ -149,7 +170,15 @@ const Navbar = () => {
                 <>
                   <NavLink
                     to="/signin"
-                    className={`flex items-center px-4 py-2 text-sm font-medium ${themeStyles.text} border ${themeStyles.border} rounded-lg hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} transition-colors`}
+                    className={`flex items-center px-4 py-2 text-sm font-medium ${
+                      themeStyles.text
+                    } border ${
+                      themeStyles.border
+                    } rounded-lg hover:bg-opacity-50 ${
+                      theme === "dark"
+                        ? "hover:bg-gray-700"
+                        : "hover:bg-gray-200"
+                    } transition-colors`}
                   >
                     <LogIn className="h-4 w-4 mr-2" />
                     Sign In
@@ -171,10 +200,16 @@ const Navbar = () => {
             {/* Theme Toggle Button (Mobile) */}
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg ${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} transition-colors`}
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              className={`p-2 rounded-lg ${themeStyles.secondaryText} hover:${
+                themeStyles.text
+              } hover:bg-opacity-50 ${
+                theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+              } transition-colors`}
+              aria-label={`Switch to ${
+                theme === "dark" ? "light" : "dark"
+              } mode`}
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun className="h-5 w-5" />
               ) : (
                 <Moon className="h-5 w-5" />
@@ -183,7 +218,11 @@ const Navbar = () => {
 
             <button
               onClick={toggleMenu}
-              className={`inline-flex items-center justify-center p-2 rounded-md ${themeStyles.secondaryText} hover:${themeStyles.text} hover:bg-opacity-50 ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} focus:outline-none transition-colors`}
+              className={`inline-flex items-center justify-center p-2 rounded-md ${
+                themeStyles.secondaryText
+              } hover:${themeStyles.text} hover:bg-opacity-50 ${
+                theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+              } focus:outline-none transition-colors`}
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -198,17 +237,25 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div className={`md:hidden ${isOpen ? "block" : "hidden"} ${themeStyles.navBg} shadow-xl backdrop-blur-sm`}>
+      <div
+        className={`md:hidden ${isOpen ? "block" : "hidden"} ${
+          themeStyles.navBg
+        } shadow-xl backdrop-blur-sm`}
+      >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <NavLink
             to="/"
             onClick={toggleMenu}
-            className={`flex items-center px-3 py-3 rounded-md text-base font-medium ${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+            className={`flex items-center px-3 py-3 rounded-md text-base font-medium ${
+              themeStyles.secondaryText
+            } hover:${themeStyles.text} ${
+              theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+            }`}
           >
             <Home className="h-5 w-5 mr-3" />
             Home
           </NavLink>
-          
+
           {user && (
             <>
               <NavLink
@@ -218,7 +265,13 @@ const Navbar = () => {
                   `flex items-center px-3 py-3 rounded-md text-base font-medium ${
                     isActive
                       ? "bg-blue-400/10 text-blue-400"
-                      : `${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`
+                      : `${themeStyles.secondaryText} hover:${
+                          themeStyles.text
+                        } ${
+                          theme === "dark"
+                            ? "hover:bg-gray-700"
+                            : "hover:bg-gray-200"
+                        }`
                   }`
                 }
               >
@@ -232,7 +285,13 @@ const Navbar = () => {
                   `flex items-center px-3 py-3 rounded-md text-base font-medium ${
                     isActive
                       ? "bg-blue-400/10 text-blue-400"
-                      : `${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`
+                      : `${themeStyles.secondaryText} hover:${
+                          themeStyles.text
+                        } ${
+                          theme === "dark"
+                            ? "hover:bg-gray-700"
+                            : "hover:bg-gray-200"
+                        }`
                   }`
                 }
               >
@@ -240,38 +299,20 @@ const Navbar = () => {
                 My Trips
               </NavLink>
               <NavLink
-                to="/destinations"
+                to="/mytrip"
                 onClick={toggleMenu}
-                className={({ isActive }) =>
-                  `flex items-center px-3 py-3 rounded-md text-base font-medium ${
-                    isActive
-                      ? "bg-blue-400/10 text-blue-400"
-                      : `${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`
-                  }`
-                }
-              >
-                <MapPin className="h-5 w-5 mr-3" />
-                Destinations
-              </NavLink>
-              <NavLink
-                to="/profile"
-                onClick={toggleMenu}
-                className={`flex items-center px-3 py-3 rounded-md text-base font-medium ${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                className={`flex items-center px-3 py-3 rounded-md text-base font-medium ${
+                  themeStyles.secondaryText
+                } hover:${themeStyles.text} ${
+                  theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+                }`}
               >
                 <User className="h-5 w-5 mr-3" />
                 Profile
               </NavLink>
-              <NavLink
-                to="/settings"
-                onClick={toggleMenu}
-                className={`flex items-center px-3 py-3 rounded-md text-base font-medium ${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
-              >
-                <Settings className="h-5 w-5 mr-3" />
-                Settings
-              </NavLink>
             </>
           )}
-          
+
           <div className={`pt-2 border-t ${themeStyles.border}`}>
             {user ? (
               <button
@@ -279,7 +320,11 @@ const Navbar = () => {
                   toggleMenu();
                   handleSignOut();
                 }}
-                className={`w-full flex items-center px-3 py-3 rounded-md text-base font-medium ${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                className={`w-full flex items-center px-3 py-3 rounded-md text-base font-medium ${
+                  themeStyles.secondaryText
+                } hover:${themeStyles.text} ${
+                  theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+                }`}
               >
                 <LogOut className="h-5 w-5 mr-3" />
                 Sign Out
@@ -289,7 +334,11 @@ const Navbar = () => {
                 <NavLink
                   to="/signin"
                   onClick={toggleMenu}
-                  className={`flex items-center justify-center px-3 py-3 rounded-md text-base font-medium ${themeStyles.secondaryText} hover:${themeStyles.text} ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'}`}
+                  className={`flex items-center justify-center px-3 py-3 rounded-md text-base font-medium ${
+                    themeStyles.secondaryText
+                  } hover:${themeStyles.text} ${
+                    theme === "dark" ? "hover:bg-gray-700" : "hover:bg-gray-200"
+                  }`}
                 >
                   <LogIn className="h-5 w-5 mr-3" />
                   Sign In
