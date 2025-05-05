@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { TripContext } from "../context/TripContext";
+import { useTrip } from "../context/TripContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sampleTrips from '../data/trips.json';
 import { useThemeStyles } from "../hooks/useThemeStyles";
+import { Plus, ArrowLeft, MapPin, CalendarDays, DollarSign } from "lucide-react";
 
 const travelImages = [
   "https://images.unsplash.com/photo-1501425359013-96058e410cfc",
@@ -17,11 +18,11 @@ const travelImages = [
   "https://images.unsplash.com/photo-1531572753322-ad063cecc140",
   "https://images.unsplash.com/photo-1492571350019-22de08371fd3",
   "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e",
-  "https://images.unsplash.com/photo-1554366347-897a5113f6ab?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  "https://images.unsplash.com/photo-1554366347-897a5113f6ab"
 ];
 
 const CreateTrip = () => {
-  const { addTrip } = useContext(TripContext);
+  const { addTrip } = useTrip();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
@@ -39,6 +40,7 @@ const CreateTrip = () => {
 
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [showTemplates, setShowTemplates] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,23 +64,34 @@ const CreateTrip = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setIsSubmitting(true);
+
+    // Validate required fields
+    if (!tripData.name || !tripData.destination) {
+      toast.error("Please fill in all required fields");
+      setIsSubmitting(false);
+      return;
+    }
+
     if (!tripData.startDate || !tripData.endDate) {
       toast.error("Please select start and end dates");
+      setIsSubmitting(false);
       return;
     }
 
     const startDate = new Date(tripData.startDate);
     const endDate = new Date(tripData.endDate);
-    
+
     if (startDate > endDate) {
       toast.error("End date must be after start date");
+      setIsSubmitting(false);
       return;
     }
 
+    // Calculate itinerary days
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    
+
     const itinerary = [];
     for (let i = 0; i < diffDays; i++) {
       const date = new Date(startDate);
@@ -101,10 +114,12 @@ const CreateTrip = () => {
       
       await addTrip(newTrip);
       toast.success("Trip created successfully!");
-      navigate("/mytrip");
+      navigate("/mytrips");
     } catch (error) {
-      toast.error("Failed to create trip");
-      console.error(error);
+      toast.error(error.message || "Failed to create trip");
+      console.error("Creation error:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -165,16 +180,18 @@ const CreateTrip = () => {
                   <h2 className="text-2xl font-semibold">Create Your Trip</h2>
                   <button
                     onClick={() => setShowTemplates(true)}
-                    className="text-blue-400 hover:text-blue-300"
+                    className="text-blue-400 hover:text-blue-300 flex items-center gap-1"
                   >
-                    Change Template
+                    <ArrowLeft size={16} /> Change Template
                   </button>
                 </div>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className={`block ${themeStyles.secondaryText} mb-2`}>Trip Name</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                        Trip Name <span className="text-red-500">*</span>
+                      </label>
                       <input
                         type="text"
                         name="name"
@@ -182,10 +199,13 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        placeholder="My European Adventure"
                       />
                     </div>
                     <div>
-                      <label className={`block ${themeStyles.secondaryText} mb-2`}>Destination</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                        Destination <span className="text-red-500">*</span>
+                      </label>
                       <input
                         type="text"
                         name="destination"
@@ -193,63 +213,84 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        placeholder="Paris, France"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className={`block ${themeStyles.secondaryText} mb-2`}>Start Date</label>
-                      <input
-                        type="date"
-                        name="startDate"
-                        value={tripData.startDate}
-                        onChange={handleChange}
-                        required
-                        min={new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                      />
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                        Start Date <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <CalendarDays className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                        <input
+                          type="date"
+                          name="startDate"
+                          value={tripData.startDate}
+                          onChange={handleChange}
+                          required
+                          min={new Date().toISOString().split('T')[0]}
+                          className={`w-full pl-10 p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className={`block ${themeStyles.secondaryText} mb-2`}>End Date</label>
+                      <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                        End Date <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <CalendarDays className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                        <input
+                          type="date"
+                          name="endDate"
+                          value={tripData.endDate}
+                          onChange={handleChange}
+                          required
+                          min={tripData.startDate || new Date().toISOString().split('T')[0]}
+                          className={`w-full pl-10 p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                      Budget ($)
+                    </label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
                       <input
-                        type="date"
-                        name="endDate"
-                        value={tripData.endDate}
+                        type="number"
+                        name="budget"
+                        value={tripData.budget}
                         onChange={handleChange}
-                        required
-                        min={tripData.startDate || new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        min="0"
+                        className={`w-full pl-10 p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        placeholder="Estimated total budget"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className={`block ${themeStyles.secondaryText} mb-2`}>Budget ($)</label>
-                    <input
-                      type="number"
-                      name="budget"
-                      value={tripData.budget}
-                      onChange={handleChange}
-                      required
-                      min="0"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                    />
-                  </div>
-
-                  <div>
-                    <label className={`block ${themeStyles.secondaryText} mb-2`}>Description</label>
+                    <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                      Description
+                    </label>
                     <textarea
                       name="description"
                       value={tripData.description}
                       onChange={handleChange}
                       rows="4"
                       className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      placeholder="Tell us about your trip plans..."
                     />
                   </div>
 
                   <div>
-                    <label className={`block ${themeStyles.secondaryText} mb-2`}>Trip Image</label>
+                    <label className={`block ${themeStyles.secondaryText} mb-2`}>
+                      Trip Image
+                    </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                       {travelImages.map((image) => (
                         <div 
@@ -279,9 +320,22 @@ const CreateTrip = () => {
                   <div className="pt-4">
                     <button
                       type="submit"
-                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors`}
+                      disabled={isSubmitting}
+                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                      Create Trip
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Creating...
+                        </>
+                      ) : (
+                        <>
+                          <Plus size={18} /> Create Trip
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>

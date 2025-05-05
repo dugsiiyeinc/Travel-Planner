@@ -7,7 +7,17 @@ export const TripContext = createContext();
 export const TripProvider = ({ children }) => {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { user } = useAuth();
+
+  const validateTrip = (trip) => {
+    if (!trip.name) throw new Error("Trip name is required");
+    if (!trip.destination) throw new Error("Destination is required");
+    if (!trip.startDate || !trip.endDate) throw new Error("Dates are required");
+    if (new Date(trip.startDate) > new Date(trip.endDate)) {
+      throw new Error("End date must be after start date");
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -20,6 +30,7 @@ export const TripProvider = ({ children }) => {
 
   const fetchTrips = async () => {
     setLoading(true);
+    setError(null);
     try {
       const { data, error } = await supabase
         .from("trips")
@@ -39,14 +50,30 @@ export const TripProvider = ({ children }) => {
       
       setTrips(formattedTrips);
     } catch (error) {
-      console.error("Error fetching trips:", error);
+      setError({
+        message: "Failed to load trips",
+        details: error.message
+      });
+      throw error;
     } finally {
       setLoading(false);
     }
   };
 
   const addTrip = async (newTrip) => {
+    validateTrip(newTrip);
+    
     if (!user) throw new Error("User not authenticated");
+
+    const tempId = `temp-${Date.now()}`;
+    const optimisticTrip = {
+      ...newTrip,
+      id: tempId,
+      created_at: new Date().toISOString(),
+      user_id: user.id
+    };
+
+    setTrips(prev => [optimisticTrip, ...prev]);
 
     try {
       const tripToInsert = {
@@ -85,25 +112,31 @@ export const TripProvider = ({ children }) => {
         if (itineraryError) throw itineraryError;
       }
 
-      // Optimistically update the UI before refetching
-      setTrips(prev => [{
-        ...tripData,
-        startDate: tripData.start_date,
-        endDate: tripData.end_date,
-        image: tripData.image_url,
-        itinerary: itineraryToInsert
-      }, ...prev]);
+      setTrips(prev => [
+        {
+          ...tripData,
+          startDate: tripData.start_date,
+          endDate: tripData.end_date,
+          image: tripData.image_url,
+          itinerary: itineraryToInsert
+        },
+        ...prev.filter(t => t.id !== tempId)
+      ]);
 
       return tripData.id;
     } catch (error) {
-      console.error("Error adding trip:", error);
+      setTrips(prev => prev.filter(t => t.id !== tempId));
+      setError({
+        message: "Failed to create trip",
+        details: error.message
+      });
       throw error;
-    } finally {
-      await fetchTrips(); // Ensure data is fresh
     }
   };
 
   const updateTrip = async (updatedTrip) => {
+    validateTrip(updatedTrip);
+    
     try {
       const tripToUpdate = {
         name: updatedTrip.name,
@@ -144,7 +177,10 @@ export const TripProvider = ({ children }) => {
 
       await fetchTrips();
     } catch (error) {
-      console.error("Error updating trip:", error);
+      setError({
+        message: "Failed to update trip",
+        details: error.message
+      });
       throw error;
     }
   };
@@ -163,7 +199,10 @@ export const TripProvider = ({ children }) => {
 
       setTrips(prev => prev.filter(trip => trip.id !== tripId));
     } catch (error) {
-      console.error("Error deleting trip:", error);
+      setError({
+        message: "Failed to delete trip",
+        details: error.message
+      });
       throw error;
     }
   };
@@ -171,6 +210,7 @@ export const TripProvider = ({ children }) => {
   const value = {
     trips,
     loading,
+    error,
     addTrip,
     updateTrip,
     deleteTrip,
