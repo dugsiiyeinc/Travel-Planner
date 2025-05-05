@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useTrip } from "../context/TripContext";
-import { Plus, ArrowRight, MapPin, Calendar, DollarSign, Smile, Frown } from "lucide-react";
+import { Plus } from "lucide-react";
 import TripCard from "../components/TripCard";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 
 const MyTrips = () => {
-  const { trips, error, fetchTrips, loading } = useTrip();
+  const { trips, error, fetchTrips } = useTrip();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
@@ -33,19 +33,27 @@ const MyTrips = () => {
             onClick={handleCreateNew}
             className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors`}
           >
-            <Plus size={18} /> New Trip
+            <Plus /> New Trip
           </button>
         </section>
 
         <section className="max-w-6xl mx-auto px-6 py-12">
-          {loading ? (
-            <div className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-          ) : error ? (
+          {error ? (
             <div className="text-center py-12">
               <div className="max-w-md mx-auto">
-                <Frown className="w-24 h-24 mx-auto text-red-500 mb-4" />
+                <svg 
+                  className="w-24 h-24 mx-auto text-red-500 mb-4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth="1.5" 
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  ></path>
+                </svg>
                 <h3 className="text-xl font-medium text-red-400 mb-2">
                   Error loading trips
                 </h3>
@@ -54,7 +62,7 @@ const MyTrips = () => {
                 </p>
                 <button
                   onClick={fetchTrips}
-                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors mt-4`}
+                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
                 >
                   Retry
                 </button>
@@ -73,7 +81,19 @@ const MyTrips = () => {
           ) : (
             <div className="text-center py-12">
               <div className="max-w-md mx-auto">
-                <Smile className="w-24 h-24 mx-auto text-gray-500 mb-4" />
+                <svg 
+                  className="w-24 h-24 mx-auto text-gray-500 mb-4" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth="1.5" 
+                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
                 <h3 className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}>
                   No trips planned yet
                 </h3>
@@ -82,7 +102,7 @@ const MyTrips = () => {
                 </p>
                 <button
                   onClick={handleCreateNew}
-                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors mt-4`}
+                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
                 >
                   Create Your First Trip
                 </button>
