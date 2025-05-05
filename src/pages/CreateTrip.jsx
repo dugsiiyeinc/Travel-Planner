@@ -181,7 +181,7 @@ const CreateTrip = () => {
                         value={tripData.name}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
@@ -192,7 +192,7 @@ const CreateTrip = () => {
                         value={tripData.destination}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg  focus:ring-2 border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
@@ -207,7 +207,7 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
@@ -219,7 +219,7 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={tripData.startDate || new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
@@ -233,7 +233,7 @@ const CreateTrip = () => {
                       onChange={handleChange}
                       required
                       min="0"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
@@ -244,7 +244,7 @@ const CreateTrip = () => {
                       value={tripData.description}
                       onChange={handleChange}
                       rows="4"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
