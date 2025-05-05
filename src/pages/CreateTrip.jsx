@@ -288,6 +288,7 @@ const CreateTrip = () => {
               </div>
             </div>
           )}
+          
         </section>
       </main>
     </div>
