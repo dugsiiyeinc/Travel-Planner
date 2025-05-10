@@ -10,6 +10,29 @@ export const TripProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const { user } = useAuth();
 
+  // Load trips from localStorage on initial load
+  useEffect(() => {
+    const savedTrips = localStorage.getItem('trips');
+    if (savedTrips) {
+      try {
+        const parsedTrips = JSON.parse(savedTrips);
+        if (Array.isArray(parsedTrips) && parsedTrips.length > 0) {
+          setTrips(parsedTrips);
+        }
+      } catch (e) {
+        console.error("Failed to parse saved trips", e);
+        localStorage.removeItem('trips');
+      }
+    }
+  }, []);
+
+  // Save trips to localStorage whenever they change
+  useEffect(() => {
+    if (trips.length > 0) {
+      localStorage.setItem('trips', JSON.stringify(trips));
+    }
+  }, [trips]);
+
   const validateTrip = (trip) => {
     if (!trip.name) throw new Error("Trip name is required");
     if (!trip.destination) throw new Error("Destination is required");
@@ -19,59 +42,75 @@ export const TripProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      fetchTrips();
-    } else {
+  const fetchTrips = async () => {
+    if (!user?.id) {
       setTrips([]);
       setLoading(false);
+      return;
     }
-  }, [user]);
 
-  const fetchTrips = async () => {
     setLoading(true);
     setError(null);
     try {
       const { data, error } = await supabase
         .from("trips")
         .select("*, trip_itinerary(*)")
-        .eq("user_id", user?.id)
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
       
       const formattedTrips = data.map(trip => ({
         ...trip,
-        id: trip.id,
-        name: trip.name,
-        destination: trip.destination,
         startDate: trip.start_date,
         endDate: trip.end_date,
-        budget: trip.budget,
-        description: trip.description,
-        status: trip.status,
         image: trip.image_url,
         itinerary: trip.trip_itinerary?.sort((a, b) => a.day - b.day) || []
       }));
       
       setTrips(formattedTrips);
+      localStorage.setItem('trips', JSON.stringify(formattedTrips));
     } catch (error) {
       console.error("Fetch trips error:", error);
       setError({
         message: "Failed to load trips",
         details: error.message
       });
+      
+      // If fetch fails, keep the localStorage trips if they exist
+      const savedTrips = localStorage.getItem('trips');
+      if (savedTrips) {
+        try {
+          const parsedTrips = JSON.parse(savedTrips);
+          if (Array.isArray(parsedTrips) && parsedTrips.length > 0) {
+            setTrips(parsedTrips);
+          }
+        } catch (e) {
+          console.error("Failed to parse saved trips", e);
+        }
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Fetch trips whenever user changes
+    if (user) {
+      fetchTrips();
+    } else {
+      // Clear trips when user logs out
+      setTrips([]);
+      localStorage.removeItem('trips');
+    }
+  }, [user]);
 
   const addTrip = async (newTrip) => {
     let tempId;
     try {
       validateTrip(newTrip);
       
-      if (!user) throw new Error("User not authenticated");
+      if (!user?.id) throw new Error("User not authenticated");
 
       tempId = `temp-${Date.now()}`;
       const optimisticTrip = {
@@ -79,9 +118,11 @@ export const TripProvider = ({ children }) => {
         id: tempId,
         created_at: new Date().toISOString(),
         user_id: user.id,
-        status: newTrip.status || 'upcoming'
+        status: newTrip.status || 'upcoming',
+        isOptimistic: true // Flag for optimistic update
       };
 
+      // Optimistic update
       setTrips(prev => [optimisticTrip, ...prev]);
 
       const tripToInsert = {
@@ -128,6 +169,7 @@ export const TripProvider = ({ children }) => {
         itinerary: itineraryToInsert
       };
 
+      // Replace optimistic trip with real data
       setTrips(prev => [
         createdTrip,
         ...prev.filter(t => t.id !== tempId)
@@ -136,6 +178,7 @@ export const TripProvider = ({ children }) => {
       return tripData.id;
     } catch (error) {
       console.error("Add trip error:", error);
+      // Rollback optimistic update
       if (tempId) {
         setTrips(prev => prev.filter(t => t.id !== tempId));
       }
@@ -162,6 +205,14 @@ export const TripProvider = ({ children }) => {
         image_url: updatedTrip.image,
         updated_at: new Date().toISOString()
       };
+
+      // Optimistic update
+      setTrips(prev => prev.map(trip => 
+        trip.id === updatedTrip.id ? {
+          ...updatedTrip,
+          isOptimistic: true
+        } : trip
+      ));
 
       const { error: tripError } = await supabase
         .from("trips")
@@ -192,20 +243,28 @@ export const TripProvider = ({ children }) => {
         if (itineraryError) throw itineraryError;
       }
 
-      // Update local state
+      // Update local state with confirmed data
       setTrips(prev => prev.map(trip => 
         trip.id === updatedTrip.id ? {
           ...updatedTrip,
           startDate: updatedTrip.startDate,
           endDate: updatedTrip.endDate,
           image: updatedTrip.image,
-          itinerary: updatedTrip.itinerary || []
+          itinerary: updatedTrip.itinerary || [],
+          isOptimistic: false
         } : trip
       ));
 
       return updatedTrip.id;
     } catch (error) {
       console.error("Update trip error:", error);
+      // Rollback optimistic update
+      setTrips(prev => prev.map(trip => 
+        trip.id === updatedTrip.id ? {
+          ...trip,
+          isOptimistic: false
+        } : trip
+      ));
       setError({
         message: "Failed to update trip",
         details: error.message
@@ -216,6 +275,9 @@ export const TripProvider = ({ children }) => {
 
   const deleteTrip = async (tripId) => {
     try {
+      // Optimistic update
+      setTrips(prev => prev.filter(trip => trip.id !== tripId));
+
       // Delete itinerary first
       await supabase
         .from("trip_itinerary")
@@ -230,10 +292,11 @@ export const TripProvider = ({ children }) => {
 
       if (error) throw error;
 
-      // Update local state
-      setTrips(prev => prev.filter(trip => trip.id !== tripId));
+      // No need to update state again since we did optimistic update
     } catch (error) {
       console.error("Delete trip error:", error);
+      // If delete fails, we need to refetch the trips to restore the correct state
+      fetchTrips();
       setError({
         message: "Failed to delete trip",
         details: error.message

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../context/TripContext";
+import { useAuth } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sampleTrips from '../data/trips.json';
@@ -22,6 +23,7 @@ const travelImages = [
 
 const CreateTrip = () => {
   const { addTrip } = useContext(TripContext);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
@@ -30,7 +32,7 @@ const CreateTrip = () => {
     destination: "",
     startDate: "",
     endDate: "",
-    budget: "",
+    budget: 0,
     description: "",
     status: "upcoming",
     image: travelImages[0],
@@ -39,10 +41,14 @@ const CreateTrip = () => {
 
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [showTemplates, setShowTemplates] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTripData(prev => ({ ...prev, [name]: value }));
+    setTripData(prev => ({ 
+      ...prev, 
+      [name]: name === "budget" ? parseFloat(value) || 0 : value 
+    }));
   };
 
   const handleImageSelect = (imageUrl) => {
@@ -55,6 +61,7 @@ const CreateTrip = () => {
       ...template,
       startDate: "",
       endDate: "",
+      budget: template.budget || 0,
       itinerary: []
     });
     setShowTemplates(false);
@@ -63,6 +70,12 @@ const CreateTrip = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    if (!user) {
+      toast.error("You must be signed in to create a trip");
+      navigate("/signin");
+      return;
+    }
+
     if (!tripData.startDate || !tripData.endDate) {
       toast.error("Please select start and end dates");
       return;
@@ -93,18 +106,22 @@ const CreateTrip = () => {
       });
     }
 
+    setIsSubmitting(true);
     try {
       const newTrip = {
         ...tripData,
-        itinerary: itinerary
+        itinerary: itinerary,
+        user_id: user.id
       };
       
       await addTrip(newTrip);
       toast.success("Trip created successfully!");
-      navigate("/mytrip");
+      navigate("/mytrip"); // Changed to navigate to trips list
     } catch (error) {
-      toast.error("Failed to create trip");
-      console.error(error);
+      console.error("Trip creation error:", error);
+      toast.error(error.message || "Failed to create trip");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -181,7 +198,7 @@ const CreateTrip = () => {
                         value={tripData.name}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
@@ -192,7 +209,7 @@ const CreateTrip = () => {
                         value={tripData.destination}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg  focus:ring-2 border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
@@ -207,7 +224,7 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
@@ -219,7 +236,7 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={tripData.startDate || new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
@@ -233,7 +250,8 @@ const CreateTrip = () => {
                       onChange={handleChange}
                       required
                       min="0"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      step="0.01"
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
@@ -244,7 +262,7 @@ const CreateTrip = () => {
                       value={tripData.description}
                       onChange={handleChange}
                       rows="4"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
@@ -279,16 +297,26 @@ const CreateTrip = () => {
                   <div className="pt-4">
                     <button
                       type="submit"
-                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors`}
+                      disabled={isSubmitting}
+                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center ${
+                        isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+                      }`}
                     >
-                      Create Trip
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Creating Trip...
+                        </>
+                      ) : "Create Trip"}
                     </button>
                   </div>
                 </form>
               </div>
             </div>
           )}
-          
         </section>
       </main>
     </div>

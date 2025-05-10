@@ -42,17 +42,20 @@ const TripDetails = () => {
     setTripData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsProcessing(true);
-    updateTrip(tripData);
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsEditing(false);
+    try {
+      await updateTrip(tripData);
       toast.success("Trip updated successfully!");
-    }, 800);
+      setIsEditing(false);
+    } catch (error) {
+      toast.error(error.message || "Failed to update trip");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const toastId = toast(
       <div className="p-4">
         <div className="flex justify-between items-center mb-4">
@@ -78,12 +81,10 @@ const TripDetails = () => {
                 setIsProcessing(true);
                 await deleteTrip(tripId);
                 toast.dismiss(toastId);
-                setTimeout(() => {
-                  navigate("/mytrip");
-                  toast.success("Trip deleted successfully!");
-                }, 300);
+                navigate("/mytrip");
+                toast.success("Trip deleted successfully!");
               } catch (error) {
-                toast.error("Failed to delete trip", error);
+                toast.error("Failed to delete trip");
                 setIsProcessing(false);
               }
             }}
@@ -226,11 +227,13 @@ const TripDetails = () => {
     }));
   };
 
-  if (!tripData) return (
-    <div className={`flex items-center justify-center min-h-screen ${themeStyles.bg}`}>
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-    </div>
-  );
+  if (!tripData) {
+    return (
+      <div className={`flex items-center justify-center min-h-screen ${themeStyles.bg}`}>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
