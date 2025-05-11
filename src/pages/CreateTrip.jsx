@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../context/TripContext";
 import { useAuth } from "../context/AuthContext";
@@ -7,6 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sampleTrips from '../data/trips.json';
 import { useThemeStyles } from "../hooks/useThemeStyles";
+import Navbar from "../components/Navbar";
 
 const travelImages = [
   "https://images.unsplash.com/photo-1501425359013-96058e410cfc",
@@ -45,9 +45,9 @@ const CreateTrip = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTripData(prev => ({ 
-      ...prev, 
-      [name]: name === "budget" ? parseFloat(value) || 0 : value 
+    setTripData(prev => ({
+      ...prev,
+      [name]: name === "budget" ? parseFloat(value) || 0 : value
     }));
   };
 
@@ -66,64 +66,66 @@ const CreateTrip = () => {
     });
     setShowTemplates(false);
   };
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  if (!user) {
+    toast.error("You must be signed in to create a trip");
+    navigate("/signin");
+    return;
+  }
+
+  if (!tripData.startDate || !tripData.endDate) {
+    toast.error("Please select start and end dates");
+    return;
+  }
+
+  const startDate = new Date(tripData.startDate);
+  const endDate = new Date(tripData.endDate);
+
+  if (startDate > endDate) {
+    toast.error("End date must be after start date");
+    return;
+  }
+
+  const diffTime = Math.abs(endDate - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+  const itinerary = [];
+  for (let i = 0; i < diffDays; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+
+    itinerary.push({
+      day: i + 1,
+      date: date.toISOString().split('T')[0],
+      activities: i === 0
+        ? ["Arrival day - plan your activities"]
+        : [`Day ${i + 1} activities - add details later`]
+    });
+  }
+
+  setIsSubmitting(true);
+  try {
+    const newTrip = {
+      ...tripData,
+      itinerary: itinerary,
+      user_id: user.id
+    };
+
+    const tripId = await addTrip(newTrip);
+    toast.success("Trip created successfully!", tripId);
     
-    if (!user) {
-      toast.error("You must be signed in to create a trip");
-      navigate("/signin");
-      return;
-    }
-
-    if (!tripData.startDate || !tripData.endDate) {
-      toast.error("Please select start and end dates");
-      return;
-    }
-
-    const startDate = new Date(tripData.startDate);
-    const endDate = new Date(tripData.endDate);
-    
-    if (startDate > endDate) {
-      toast.error("End date must be after start date");
-      return;
-    }
-
-    const diffTime = Math.abs(endDate - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    
-    const itinerary = [];
-    for (let i = 0; i < diffDays; i++) {
-      const date = new Date(startDate);
-      date.setDate(startDate.getDate() + i);
-      
-      itinerary.push({
-        day: i + 1,
-        date: date.toISOString().split('T')[0],
-        activities: i === 0 
-          ? ["Arrival day - plan your activities"] 
-          : [`Day ${i + 1} activities - add details later`]
-      });
-    }
-
-    setIsSubmitting(true);
-    try {
-      const newTrip = {
-        ...tripData,
-        itinerary: itinerary,
-        user_id: user.id
-      };
-      
-      await addTrip(newTrip);
-      toast.success("Trip created successfully!");
-      navigate("/mytrip"); // Changed to navigate to trips list
-    } catch (error) {
-      console.error("Trip creation error:", error);
-      toast.error(error.message || "Failed to create trip");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    // Wait a moment to ensure the trips are refreshed
+    await new Promise(resolve => setTimeout(resolve, 500));
+    navigate("/mytrip");
+  } catch (error) {
+    console.error("Trip creation error:", error);
+    toast.error(error.message || "Failed to create trip");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
@@ -144,15 +146,15 @@ const CreateTrip = () => {
               <h2 className="text-2xl font-semibold mb-6 text-center">Select a Trip Template</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {sampleTrips.map(trip => (
-                  <div 
+                  <div
                     key={trip.id}
                     className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedTemplate === trip.id ? 
                       'border-blue-500 bg-blue-500/10' : `${themeStyles.border} hover:bg-opacity-50 hover:bg-gray-500`}`}
                     onClick={() => handleTemplateSelect(trip)}
                   >
                     <div className="flex items-center gap-4">
-                      <img 
-                        src={trip.image} 
+                      <img
+                        src={trip.image}
                         alt={trip.name}
                         className="w-16 h-16 rounded-md object-cover"
                       />
@@ -187,7 +189,7 @@ const CreateTrip = () => {
                     Change Template
                   </button>
                 </div>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -270,13 +272,13 @@ const CreateTrip = () => {
                     <label className={`block ${themeStyles.secondaryText} mb-2`}>Trip Image</label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                       {travelImages.map((image) => (
-                        <div 
-                          key={image} 
+                        <div
+                          key={image}
                           className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${tripData.image === image ? 'border-blue-500' : 'border-transparent'}`}
                           onClick={() => handleImageSelect(image)}
                         >
-                          <img 
-                            src={image} 
+                          <img
+                            src={image}
                             alt="Travel destination"
                             className="w-full h-24 object-cover"
                           />

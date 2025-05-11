@@ -1,68 +1,34 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import { useTrip } from "../context/TripContext";
-import { Plus, RefreshCw } from "lucide-react";
-import TripCard from "../components/TripCard";
-import { useThemeStyles } from "../hooks/useThemeStyles";
 import { useAuth } from "../context/AuthContext";
+import { useTrip } from "../context/TripContext";
+import { useThemeStyles } from "../hooks/useThemeStyles";
+import { useEffect } from "react";
+import Navbar from "../components/Navbar";
+import TripCard from "../components/TripCard";
+import { Plus, RefreshCw } from "lucide-react"; 
 
 const MyTrips = () => {
   const { trips, fetchTrips } = useTrip();
   const { user } = useAuth();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
-  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Prevent accidental page reload
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      // Only show warning if there are trips
-      if (trips.length > 0) {
-        e.preventDefault();
-        e.returnValue =
-          "Are you sure you want to leave? Your trips data will be saved, but any unsaved changes might be lost.";
-        return e.returnValue;
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [trips]);
-
-  // Fetch trips from Supabase when user is authenticated
   useEffect(() => {
     if (user) {
       fetchTrips();
     }
-  }, [fetchTrips, user]);
+  }, [user, fetchTrips]);
 
   const handleCreateNew = () => navigate("/createtrip");
   const handleTripClick = (tripId) => navigate(`/mytrip/${tripId}`);
-
-  const handleRefresh = async (e) => {
-    e.preventDefault();
-    if (isRefreshing) return;
-    setIsRefreshing(true);
-    try {
-      await fetchTrips();
-    } catch (error) {
-      console.error("Failed to refresh trips:", error);
-    } finally {
-      setIsRefreshing(false);
-    }
-  };
+  const handleRefresh = () => fetchTrips();
 
   if (!user) {
     return (
       <div className={`${themeStyles.bg} min-h-screen`}>
         <Navbar />
         <div className="pt-20 flex flex-col items-center justify-center h-[calc(100vh-5rem)] px-6">
-          <div
-            className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md text-center`}
-          >
+          <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md text-center`}>
             <h2 className="text-2xl font-semibold mb-4">Please Sign In</h2>
             <p className={`${themeStyles.secondaryText} mb-6`}>
               You need to be signed in to view your trips.
@@ -83,9 +49,7 @@ const MyTrips = () => {
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
-        <section
-          className={`flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}
-        >
+        <section className={`flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             My <span className="text-blue-400">Trips</span>
           </h1>
@@ -101,18 +65,10 @@ const MyTrips = () => {
             </button>
             <button
               onClick={handleRefresh}
-              disabled={isRefreshing}
-              className={`${
-                themeStyles.buttonSecondary
-              } font-semibold px-4 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md ${
-                isRefreshing ? "opacity-75 cursor-not-allowed" : ""
-              }`}
+              className={`${themeStyles.buttonSecondary} font-semibold px-4 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md`}
             >
-              <RefreshCw
-                size={20}
-                className={isRefreshing ? "animate-spin" : ""}
-              />
-              {isRefreshing ? "Refreshing..." : "Refresh"}
+              <RefreshCw size={20} />
+              Refresh
             </button>
           </div>
         </section>
@@ -126,17 +82,9 @@ const MyTrips = () => {
                 </h2>
                 <button
                   onClick={handleRefresh}
-                  disabled={isRefreshing}
-                  className={`flex items-center gap-2 ${
-                    themeStyles.secondaryText
-                  } text-sm ${
-                    isRefreshing ? "opacity-75 cursor-not-allowed" : ""
-                  }`}
+                  className={`flex items-center gap-2 ${themeStyles.secondaryText} text-sm`}
                 >
-                  <RefreshCw
-                    size={16}
-                    className={isRefreshing ? "animate-spin" : ""}
-                  />
+                  <RefreshCw size={16} />
                   Refresh
                 </button>
               </div>
@@ -151,9 +99,7 @@ const MyTrips = () => {
               </div>
             </>
           ) : (
-            <div
-              className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md mx-auto text-center`}
-            >
+            <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md mx-auto text-center`}>
               <svg
                 className="w-24 h-24 mx-auto text-gray-500 mb-4"
                 fill="none"
@@ -167,9 +113,7 @@ const MyTrips = () => {
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              <h3
-                className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}
-              >
+              <h3 className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}>
                 No trips planned yet
               </h3>
               <p className={`${themeStyles.secondaryText} mb-6`}>
