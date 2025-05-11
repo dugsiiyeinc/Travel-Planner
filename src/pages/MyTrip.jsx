@@ -20,14 +20,15 @@ const MyTrips = () => {
       // Only show warning if there are trips
       if (trips.length > 0) {
         e.preventDefault();
-        e.returnValue = 'Are you sure you want to leave? Your trips data will be saved, but any unsaved changes might be lost.';
+        e.returnValue =
+          "Are you sure you want to leave? Your trips data will be saved, but any unsaved changes might be lost.";
         return e.returnValue;
       }
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [trips]);
 
@@ -59,13 +60,15 @@ const MyTrips = () => {
       <div className={`${themeStyles.bg} min-h-screen`}>
         <Navbar />
         <div className="pt-20 flex flex-col items-center justify-center h-[calc(100vh-5rem)] px-6">
-          <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md text-center`}>
+          <div
+            className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md text-center`}
+          >
             <h2 className="text-2xl font-semibold mb-4">Please Sign In</h2>
             <p className={`${themeStyles.secondaryText} mb-6`}>
               You need to be signed in to view your trips.
             </p>
             <button
-              onClick={() => navigate('/signin')}
+              onClick={() => navigate("/signin")}
               className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg`}
             >
               Sign In
@@ -80,7 +83,9 @@ const MyTrips = () => {
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
       <Navbar />
       <main className="pt-20">
-        <section className={`flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}>
+        <section
+          className={`flex flex-col items-center text-center px-6 py-12 bg-gradient-to-b ${themeStyles.gradientFrom} ${themeStyles.gradientTo}`}
+        >
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             My <span className="text-blue-400">Trips</span>
           </h1>
@@ -97,11 +102,16 @@ const MyTrips = () => {
             <button
               onClick={handleRefresh}
               disabled={isRefreshing}
-              className={`${themeStyles.buttonSecondary} font-semibold px-4 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md ${
+              className={`${
+                themeStyles.buttonSecondary
+              } font-semibold px-4 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md ${
                 isRefreshing ? "opacity-75 cursor-not-allowed" : ""
               }`}
             >
-              <RefreshCw size={20} className={isRefreshing ? "animate-spin" : ""} />
+              <RefreshCw
+                size={20}
+                className={isRefreshing ? "animate-spin" : ""}
+              />
               {isRefreshing ? "Refreshing..." : "Refresh"}
             </button>
           </div>
@@ -117,11 +127,16 @@ const MyTrips = () => {
                 <button
                   onClick={handleRefresh}
                   disabled={isRefreshing}
-                  className={`flex items-center gap-2 ${themeStyles.secondaryText} text-sm ${
+                  className={`flex items-center gap-2 ${
+                    themeStyles.secondaryText
+                  } text-sm ${
                     isRefreshing ? "opacity-75 cursor-not-allowed" : ""
                   }`}
                 >
-                  <RefreshCw size={16} className={isRefreshing ? "animate-spin" : ""} />
+                  <RefreshCw
+                    size={16}
+                    className={isRefreshing ? "animate-spin" : ""}
+                  />
                   Refresh
                 </button>
               </div>
@@ -136,7 +151,9 @@ const MyTrips = () => {
               </div>
             </>
           ) : (
-            <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md mx-auto text-center`}>
+            <div
+              className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md mx-auto text-center`}
+            >
               <svg
                 className="w-24 h-24 mx-auto text-gray-500 mb-4"
                 fill="none"
@@ -150,7 +167,9 @@ const MyTrips = () => {
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              <h3 className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}>
+              <h3
+                className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}
+              >
                 No trips planned yet
               </h3>
               <p className={`${themeStyles.secondaryText} mb-6`}>
