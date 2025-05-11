@@ -5,7 +5,7 @@ import { useThemeStyles } from "../hooks/useThemeStyles";
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import TripCard from "../components/TripCard";
-import { Plus, RefreshCw } from "lucide-react"; 
+import { Plus } from "lucide-react"; 
 
 const MyTrips = () => {
   const { trips, fetchTrips } = useTrip();
@@ -21,7 +21,6 @@ const MyTrips = () => {
 
   const handleCreateNew = () => navigate("/createtrip");
   const handleTripClick = (tripId) => navigate(`/mytrip/${tripId}`);
-  const handleRefresh = () => fetchTrips();
 
   if (!user) {
     return (
@@ -56,21 +55,12 @@ const MyTrips = () => {
           <p className={`text-lg ${themeStyles.secondaryText} max-w-2xl mb-6`}>
             All your planned and completed adventures in one place
           </p>
-          <div className="flex gap-4">
-            <button
-              onClick={handleCreateNew}
-              className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md`}
-            >
-              <Plus size={20} /> New Trip
-            </button>
-            <button
-              onClick={handleRefresh}
-              className={`${themeStyles.buttonSecondary} font-semibold px-4 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md`}
-            >
-              <RefreshCw size={20} />
-              Refresh
-            </button>
-          </div>
+          <button
+            onClick={handleCreateNew}
+            className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md`}
+          >
+            <Plus size={20} /> New Trip
+          </button>
         </section>
 
         <section className="max-w-6xl mx-auto px-6 py-12">
@@ -80,13 +70,6 @@ const MyTrips = () => {
                 <h2 className="text-2xl font-semibold">
                   {trips.length} {trips.length === 1 ? "Trip" : "Trips"}
                 </h2>
-                <button
-                  onClick={handleRefresh}
-                  className={`flex items-center gap-2 ${themeStyles.secondaryText} text-sm`}
-                >
-                  <RefreshCw size={16} />
-                  Refresh
-                </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {trips.map((trip) => (
@@ -119,12 +102,6 @@ const MyTrips = () => {
               <p className={`${themeStyles.secondaryText} mb-6`}>
                 Start by creating your first adventure!
               </p>
-              <button
-                onClick={handleCreateNew}
-                className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors flex items-center gap-2 mx-auto`}
-              >
-                <Plus size={18} /> Create Your First Trip
-              </button>
             </div>
           )}
         </section>
