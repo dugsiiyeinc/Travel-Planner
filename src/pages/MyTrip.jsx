@@ -5,22 +5,31 @@ import { useThemeStyles } from "../hooks/useThemeStyles";
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import TripCard from "../components/TripCard";
-import { Plus } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
 
 const MyTrips = () => {
-  const { trips, fetchTrips } = useTrip();
+  const { trips, loading, error, fetchTrips, clearError } = useTrip();
   const { user } = useAuth();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
   useEffect(() => {
-    if (user) {
-      fetchTrips();
-    }
+    const timer = setTimeout(() => {
+      if (user) {
+        fetchTrips();
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [user, fetchTrips]);
 
   const handleCreateNew = () => navigate("/createtrip");
   const handleTripClick = (tripId) => navigate(`/mytrip/${tripId}`);
+
+  const handleRetry = () => {
+    clearError();
+    fetchTrips();
+  };
 
   if (!user) {
     return (
@@ -37,6 +46,42 @@ const MyTrips = () => {
               className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg`}
             >
               Sign In
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading && trips.length === 0) {
+    return (
+      <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
+        <Navbar />
+        <div className="pt-20 flex items-center justify-center h-[calc(100vh-5rem)]">
+          <div className="flex flex-col items-center">
+            <Loader2 className="animate-spin h-12 w-12 mb-4" />
+            <p>Loading your trips...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
+        <Navbar />
+        <div className="pt-20 flex items-center justify-center h-[calc(100vh-5rem)] px-6">
+          <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md text-center`}>
+            <h2 className="text-2xl font-semibold mb-4">Error Loading Trips</h2>
+            <p className={`${themeStyles.secondaryText} mb-6`}>
+              {error.message}
+            </p>
+            <button
+              onClick={handleRetry}
+              className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg`}
+            >
+              Retry
             </button>
           </div>
         </div>
@@ -102,6 +147,12 @@ const MyTrips = () => {
               <p className={`${themeStyles.secondaryText} mb-6`}>
                 Start by creating your first adventure!
               </p>
+              <button
+                onClick={handleCreateNew}
+                className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg`}
+              >
+                Create Trip
+              </button>
             </div>
           )}
         </section>

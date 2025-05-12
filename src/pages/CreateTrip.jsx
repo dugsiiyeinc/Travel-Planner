@@ -10,8 +10,8 @@ import Navbar from "../components/Navbar";
 
 const travelImages = [
   "https://images.unsplash.com/photo-1501425359013-96058e410cfc",
-  "https://images.unsplash.com/photo-1617046774731-b2c14cc8c377",
-  "https://images.unsplash.com/photo-1639060015191-9d83063eab2a",
+  "https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/data/ports/falmouth-jamaica/falmouth-jamaica-port-aerial-coast.jpg?$1440x600$",
+  "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5",
   "https://images.unsplash.com/photo-1523905330026-b8bd1f5f320e",
   "https://images.unsplash.com/photo-1476231682828-37e571bc172f",
   "https://images.unsplash.com/photo-1518684079-3c830dcef090",
