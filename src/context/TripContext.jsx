@@ -6,13 +6,14 @@ export const TripContext = createContext();
 
 export const TripProvider = ({ children }) => {
   const [trips, setTrips] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start with loading true
   const [error, setError] = useState(null);
   const { user } = useAuth();
 
   const fetchTrips = async () => {
     if (!user?.id) {
       setTrips([]);
+      setLoading(false);
       return;
     }
 
@@ -50,7 +51,10 @@ export const TripProvider = ({ children }) => {
 
   // Set up realtime subscriptions
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      setTrips([]);
+      return;
+    }
 
     const tripsChannel = supabase
       .channel('trips_changes')
@@ -62,7 +66,32 @@ export const TripProvider = ({ children }) => {
           table: 'trips',
           filter: `user_id=eq.${user.id}`
         },
-        () => fetchTrips()
+        (payload) => {
+          // Handle realtime updates
+          if (payload.eventType === 'INSERT') {
+            const newTrip = {
+              ...payload.new,
+              id: payload.new.id,
+              startDate: payload.new.start_date,
+              endDate: payload.new.end_date,
+              image: payload.new.image_url,
+              itinerary: [],
+            };
+            setTrips(prev => [newTrip, ...prev]);
+          } else if (payload.eventType === 'DELETE') {
+            setTrips(prev => prev.filter(trip => trip.id !== payload.old.id));
+          } else if (payload.eventType === 'UPDATE') {
+            setTrips(prev => prev.map(trip => 
+              trip.id === payload.new.id ? {
+                ...trip,
+                ...payload.new,
+                startDate: payload.new.start_date,
+                endDate: payload.new.end_date,
+                image: payload.new.image_url,
+              } : trip
+            ));
+          }
+        }
       )
       .subscribe();
 
@@ -99,68 +128,12 @@ export const TripProvider = ({ children }) => {
     }
   };
 
-  // const addTrip = async (newTrip) => {
-  //   try {
-  //     validateTrip(newTrip);
-
-  //     if (!user?.id) throw new Error("User not authenticated");
-
-  //     const tripToInsert = {
-  //       name: newTrip.name,
-  //       destination: newTrip.destination,
-  //       start_date: new Date(newTrip.startDate).toISOString(),
-  //       end_date: new Date(newTrip.endDate).toISOString(),
-  //       budget: newTrip.budget || 0,
-  //       description: newTrip.description || "",
-  //       status: newTrip.status || "upcoming",
-  //       image_url: newTrip.image || "",
-  //       user_id: user.id,
-  //     };
-
-  //     const { data: tripData, error: insertError } = await supabase
-  //       .from("trips")
-  //       .insert(tripToInsert)
-  //       .select()
-  //       .single();
-
-  //     if (insertError) throw insertError;
-
-  //     // Create itinerary if provided
-  //     if (newTrip.itinerary?.length > 0) {
-  //       const itineraryToInsert = newTrip.itinerary.map((day) => ({
-  //         trip_id: tripData.id,
-  //         day: day.day,
-  //         date: day.date,
-  //         activities: day.activities,
-  //       }));
-
-  //       const { error: itineraryError } = await supabase
-  //         .from("trip_itinerary")
-  //         .insert(itineraryToInsert);
-
-  //       if (itineraryError) throw itineraryError;
-  //     }
-
-  //     // Refresh trips list
-  //     await fetchTrips();
-
-  //     return tripData.id;
-  //   } catch (err) {
-  //     console.error("Failed to create trip:", err);
-  //     setError({
-  //       message: "Failed to create trip",
-  //       details: err.message,
-  //     });
-  //     throw err;
-  //   }
-  // };
-
   const addTrip = async (newTrip) => {
     try {
       validateTrip(newTrip);
-  
+
       if (!user?.id) throw new Error("User not authenticated");
-  
+
       const tripToInsert = {
         name: newTrip.name,
         destination: newTrip.destination,
@@ -172,15 +145,15 @@ export const TripProvider = ({ children }) => {
         image_url: newTrip.image || "",
         user_id: user.id,
       };
-  
+
       const { data: tripData, error: insertError } = await supabase
         .from("trips")
         .insert(tripToInsert)
         .select()
         .single();
-  
+
       if (insertError) throw insertError;
-  
+
       // Create itinerary if provided
       if (newTrip.itinerary?.length > 0) {
         const itineraryToInsert = newTrip.itinerary.map((day) => ({
@@ -189,14 +162,14 @@ export const TripProvider = ({ children }) => {
           date: day.date,
           activities: day.activities,
         }));
-  
+
         const { error: itineraryError } = await supabase
           .from("trip_itinerary")
           .insert(itineraryToInsert);
-  
+
         if (itineraryError) throw itineraryError;
       }
-  
+
       // Optimistically update the local state
       const formattedTrip = {
         ...tripData,
@@ -206,9 +179,9 @@ export const TripProvider = ({ children }) => {
         image: tripData.image_url,
         itinerary: newTrip.itinerary || [],
       };
-  
+
       setTrips(prev => [formattedTrip, ...prev]);
-  
+
       return tripData.id;
     } catch (err) {
       console.error("Failed to create trip:", err);
@@ -265,7 +238,18 @@ export const TripProvider = ({ children }) => {
         if (itineraryError) throw itineraryError;
       }
 
-      await fetchTrips();
+      // Update local state
+      setTrips(prev => prev.map(trip => 
+        trip.id === updatedTrip.id ? {
+          ...trip,
+          ...updatedTrip,
+          startDate: updatedTrip.startDate,
+          endDate: updatedTrip.endDate,
+          image: updatedTrip.image,
+          itinerary: updatedTrip.itinerary || [],
+        } : trip
+      ));
+
       return updatedTrip.id;
     } catch (err) {
       console.error("Failed to update trip:", err);
@@ -287,7 +271,8 @@ export const TripProvider = ({ children }) => {
       
       if (deleteError) throw deleteError;
       
-      await fetchTrips();
+      // Update local state
+      setTrips(prev => prev.filter(trip => trip.id !== tripId));
     } catch (err) {
       console.error("Failed to delete trip:", err);
       setError({

@@ -5,7 +5,7 @@ import { useThemeStyles } from "../hooks/useThemeStyles";
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import TripCard from "../components/TripCard";
-import { Plus } from "lucide-react"; 
+import { Plus } from "lucide-react";
 
 const MyTrips = () => {
   const { trips, fetchTrips } = useTrip();
