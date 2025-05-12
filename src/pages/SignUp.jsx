@@ -17,7 +17,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { signUp } = useAuth();
+  const { signUp, signIn } = useAuth();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
@@ -37,9 +37,14 @@ const SignUp = () => {
     setLoading(true);
 
     try {
+      // First sign up the user
       await signUp(email, password, firstName, lastName);
-      toast.success("Account created successfully! Please check your email for confirmation.");
-      navigate("/signin");
+      toast.success("Account created successfully!");
+      
+      // Then automatically sign them in
+      await signIn(email, password);
+      toast.success("Signed in successfully!");
+      navigate("/mytrip");
     } catch (error) {
       console.error("SignUp Error:", error);
       
@@ -56,6 +61,7 @@ const SignUp = () => {
       setLoading(false);
     }
   };
+
 
   return (
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>

@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { TripContext } from "../context/TripContext";
+import { useAuth } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sampleTrips from '../data/trips.json';
 import { useThemeStyles } from "../hooks/useThemeStyles";
+import Navbar from "../components/Navbar";
 
 const travelImages = [
   "https://images.unsplash.com/photo-1501425359013-96058e410cfc",
@@ -22,6 +23,7 @@ const travelImages = [
 
 const CreateTrip = () => {
   const { addTrip } = useContext(TripContext);
+  const { user } = useAuth();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
@@ -30,7 +32,7 @@ const CreateTrip = () => {
     destination: "",
     startDate: "",
     endDate: "",
-    budget: "",
+    budget: 0,
     description: "",
     status: "upcoming",
     image: travelImages[0],
@@ -39,10 +41,14 @@ const CreateTrip = () => {
 
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [showTemplates, setShowTemplates] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTripData(prev => ({ ...prev, [name]: value }));
+    setTripData(prev => ({
+      ...prev,
+      [name]: name === "budget" ? parseFloat(value) || 0 : value
+    }));
   };
 
   const handleImageSelect = (imageUrl) => {
@@ -55,58 +61,71 @@ const CreateTrip = () => {
       ...template,
       startDate: "",
       endDate: "",
+      budget: template.budget || 0,
       itinerary: []
     });
     setShowTemplates(false);
   };
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  if (!user) {
+    toast.error("You must be signed in to create a trip");
+    navigate("/signin");
+    return;
+  }
+
+  if (!tripData.startDate || !tripData.endDate) {
+    toast.error("Please select start and end dates");
+    return;
+  }
+
+  const startDate = new Date(tripData.startDate);
+  const endDate = new Date(tripData.endDate);
+
+  if (startDate > endDate) {
+    toast.error("End date must be after start date");
+    return;
+  }
+
+  const diffTime = Math.abs(endDate - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+  const itinerary = [];
+  for (let i = 0; i < diffDays; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+
+    itinerary.push({
+      day: i + 1,
+      date: date.toISOString().split('T')[0],
+      activities: i === 0
+        ? ["Arrival day - plan your activities"]
+        : [`Day ${i + 1} activities - add details later`]
+    });
+  }
+
+  setIsSubmitting(true);
+  try {
+    const newTrip = {
+      ...tripData,
+      itinerary: itinerary,
+      user_id: user.id
+    };
+
+    const tripId = await addTrip(newTrip);
+    toast.success("Trip created successfully!", tripId);
     
-    if (!tripData.startDate || !tripData.endDate) {
-      toast.error("Please select start and end dates");
-      return;
-    }
-
-    const startDate = new Date(tripData.startDate);
-    const endDate = new Date(tripData.endDate);
-    
-    if (startDate > endDate) {
-      toast.error("End date must be after start date");
-      return;
-    }
-
-    const diffTime = Math.abs(endDate - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    
-    const itinerary = [];
-    for (let i = 0; i < diffDays; i++) {
-      const date = new Date(startDate);
-      date.setDate(startDate.getDate() + i);
-      
-      itinerary.push({
-        day: i + 1,
-        date: date.toISOString().split('T')[0],
-        activities: i === 0 
-          ? ["Arrival day - plan your activities"] 
-          : [`Day ${i + 1} activities - add details later`]
-      });
-    }
-
-    try {
-      const newTrip = {
-        ...tripData,
-        itinerary: itinerary
-      };
-      
-      await addTrip(newTrip);
-      toast.success("Trip created successfully!");
-      navigate("/mytrip");
-    } catch (error) {
-      toast.error("Failed to create trip");
-      console.error(error);
-    }
-  };
+    // Wait a moment to ensure the trips are refreshed
+    await new Promise(resolve => setTimeout(resolve, 500));
+    navigate("/mytrip");
+  } catch (error) {
+    console.error("Trip creation error:", error);
+    toast.error(error.message || "Failed to create trip");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
@@ -127,15 +146,15 @@ const CreateTrip = () => {
               <h2 className="text-2xl font-semibold mb-6 text-center">Select a Trip Template</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {sampleTrips.map(trip => (
-                  <div 
+                  <div
                     key={trip.id}
                     className={`border rounded-lg p-4 cursor-pointer transition-all ${selectedTemplate === trip.id ? 
                       'border-blue-500 bg-blue-500/10' : `${themeStyles.border} hover:bg-opacity-50 hover:bg-gray-500`}`}
                     onClick={() => handleTemplateSelect(trip)}
                   >
                     <div className="flex items-center gap-4">
-                      <img 
-                        src={trip.image} 
+                      <img
+                        src={trip.image}
                         alt={trip.name}
                         className="w-16 h-16 rounded-md object-cover"
                       />
@@ -170,7 +189,7 @@ const CreateTrip = () => {
                     Change Template
                   </button>
                 </div>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -181,7 +200,7 @@ const CreateTrip = () => {
                         value={tripData.name}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
@@ -192,7 +211,7 @@ const CreateTrip = () => {
                         value={tripData.destination}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg  focus:ring-2 border-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
@@ -207,7 +226,7 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                     <div>
@@ -219,7 +238,7 @@ const CreateTrip = () => {
                         onChange={handleChange}
                         required
                         min={tripData.startDate || new Date().toISOString().split('T')[0]}
-                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                        className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                       />
                     </div>
                   </div>
@@ -233,7 +252,8 @@ const CreateTrip = () => {
                       onChange={handleChange}
                       required
                       min="0"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      step="0.01"
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
@@ -244,7 +264,7 @@ const CreateTrip = () => {
                       value={tripData.description}
                       onChange={handleChange}
                       rows="4"
-                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+                      className={`w-full p-3 ${themeStyles.cardBg} ${themeStyles.border} rounded-lg border-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
                     />
                   </div>
 
@@ -252,13 +272,13 @@ const CreateTrip = () => {
                     <label className={`block ${themeStyles.secondaryText} mb-2`}>Trip Image</label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                       {travelImages.map((image) => (
-                        <div 
-                          key={image} 
+                        <div
+                          key={image}
                           className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${tripData.image === image ? 'border-blue-500' : 'border-transparent'}`}
                           onClick={() => handleImageSelect(image)}
                         >
-                          <img 
-                            src={image} 
+                          <img
+                            src={image}
                             alt="Travel destination"
                             className="w-full h-24 object-cover"
                           />
@@ -279,16 +299,26 @@ const CreateTrip = () => {
                   <div className="pt-4">
                     <button
                       type="submit"
-                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors`}
+                      disabled={isSubmitting}
+                      className={`w-full ${themeStyles.buttonPrimary} text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center ${
+                        isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+                      }`}
                     >
-                      Create Trip
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Creating Trip...
+                        </>
+                      ) : "Create Trip"}
                     </button>
                   </div>
                 </form>
               </div>
             </div>
           )}
-          
         </section>
       </main>
     </div>

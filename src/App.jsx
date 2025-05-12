@@ -2,22 +2,28 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Toast from "./components/Toast"; // Import the Toast component
+import Toast from "./components/Toast";
 
 const App = () => {
+
   return (
-    <div>
-      <header>
+    <div className="flex flex-col min-h-screen">
+      <header className="sticky top-0 z-50">
         <Navbar />
       </header>
-      <main>
+      
+      <main className="flex-grow">
         <Outlet />
       </main>
+      
       <footer>
         <Footer />
       </footer>
-      {/* Add Toast component here - it should be at the root level */}
-      <Toast />
+      
+      {/* Toast positioned fixed at bottom right */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <Toast />
+      </div>
     </div>
   );
 };

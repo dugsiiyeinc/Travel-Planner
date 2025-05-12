@@ -1,22 +1,48 @@
-import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { useTrip } from "../context/TripContext";
-import { Plus } from "lucide-react";
-import TripCard from "../components/TripCard";
 import { useThemeStyles } from "../hooks/useThemeStyles";
+import { useEffect } from "react";
+import Navbar from "../components/Navbar";
+import TripCard from "../components/TripCard";
+import { Plus } from "lucide-react";
 
 const MyTrips = () => {
-  const { trips, error, fetchTrips } = useTrip();
+  const { trips, fetchTrips } = useTrip();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const themeStyles = useThemeStyles();
 
   useEffect(() => {
-    fetchTrips();
-  }, [fetchTrips]);
+    if (user) {
+      fetchTrips();
+    }
+  }, [user, fetchTrips]);
 
   const handleCreateNew = () => navigate("/createtrip");
   const handleTripClick = (tripId) => navigate(`/mytrip/${tripId}`);
+
+  if (!user) {
+    return (
+      <div className={`${themeStyles.bg} min-h-screen`}>
+        <Navbar />
+        <div className="pt-20 flex flex-col items-center justify-center h-[calc(100vh-5rem)] px-6">
+          <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md text-center`}>
+            <h2 className="text-2xl font-semibold mb-4">Please Sign In</h2>
+            <p className={`${themeStyles.secondaryText} mb-6`}>
+              You need to be signed in to view your trips.
+            </p>
+            <button
+              onClick={() => navigate("/signin")}
+              className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg`}
+            >
+              Sign In
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${themeStyles.bg} ${themeStyles.text} min-h-screen`}>
@@ -31,82 +57,51 @@ const MyTrips = () => {
           </p>
           <button
             onClick={handleCreateNew}
-            className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors`}
+            className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 transition-colors hover:shadow-md`}
           >
-            <Plus /> New Trip
+            <Plus size={20} /> New Trip
           </button>
         </section>
 
         <section className="max-w-6xl mx-auto px-6 py-12">
-          {error ? (
-            <div className="text-center py-12">
-              <div className="max-w-md mx-auto">
-                <svg 
-                  className="w-24 h-24 mx-auto text-red-500 mb-4" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth="1.5" 
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                  ></path>
-                </svg>
-                <h3 className="text-xl font-medium text-red-400 mb-2">
-                  Error loading trips
-                </h3>
-                <p className={themeStyles.secondaryText}>
-                  {error.message || "Failed to load your trips. Please try again."}
-                </p>
-                <button
-                  onClick={fetchTrips}
-                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
-                >
-                  Retry
-                </button>
+          {trips.length > 0 ? (
+            <>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold">
+                  {trips.length} {trips.length === 1 ? "Trip" : "Trips"}
+                </h2>
               </div>
-            </div>
-          ) : trips.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {trips.map(trip => (
-                <TripCard 
-                  key={trip.id} 
-                  trip={trip} 
-                  onClick={() => handleTripClick(trip.id)}
-                />
-              ))}
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {trips.map((trip) => (
+                  <TripCard
+                    key={trip.id}
+                    trip={trip}
+                    onClick={() => handleTripClick(trip.id)}
+                  />
+                ))}
+              </div>
+            </>
           ) : (
-            <div className="text-center py-12">
-              <div className="max-w-md mx-auto">
-                <svg 
-                  className="w-24 h-24 mx-auto text-gray-500 mb-4" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth="1.5" 
-                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-                <h3 className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}>
-                  No trips planned yet
-                </h3>
-                <p className={themeStyles.secondaryText}>
-                  Start by creating your first adventure!
-                </p>
-                <button
-                  onClick={handleCreateNew}
-                  className={`${themeStyles.buttonPrimary} text-white font-semibold px-6 py-2 rounded-lg transition-colors`}
-                >
-                  Create Your First Trip
-                </button>
-              </div>
+            <div className={`${themeStyles.cardBg} rounded-xl shadow-md p-8 max-w-md mx-auto text-center`}>
+              <svg
+                className="w-24 h-24 mx-auto text-gray-500 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <h3 className={`text-xl font-medium ${themeStyles.secondaryText} mb-2`}>
+                No trips planned yet
+              </h3>
+              <p className={`${themeStyles.secondaryText} mb-6`}>
+                Start by creating your first adventure!
+              </p>
             </div>
           )}
         </section>
