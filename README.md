@@ -211,16 +211,18 @@ For support or inquiries, feel free to reach out:
 
 ---
 
-## <img src="https://img.icons8.com/color/48/000000/beach.png" width="30"/> Create Trips
+## <img src="https://img.icons8.com/color/48/000000/beach.png" width="30"/> 4) Create Trips, MyTrips & Trip Details
 
 **Plan Your Next Adventure with Ease**  
 *Create your dream trip with all details managed in one place*
 ![image](https://github.com/user-attachments/assets/28c3babe-eb34-4b22-ac85-d56bd37e7cac)
-
+![image](https://github.com/user-attachments/assets/d2756316-fc56-46c9-a988-5485f4ae8cfe)
+![image](https://github.com/user-attachments/assets/5ea2d9f7-4642-4ee0-bb55-730582390f62)
+![image](https://github.com/user-attachments/assets/cf4c9e23-970a-4e34-971f-5b751a587f81)
 
 ---
 
-## <img src="https://img.icons8.com/color/30/000000/template.png"/> Featured Trip Templates
+### <img src="https://img.icons8.com/color/30/000000/template.png"/> Featured Trip Templates
 
 Explore our curated travel plans. Click **Use Template** to start planning instantly!
 
